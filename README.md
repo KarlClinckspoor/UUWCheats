@@ -94,3 +94,10 @@ These are provided with minimal testing
 ## TODOs
 
 * Check how easy it is to transfer the cheats from the Underworlds, and the UltimaHacks versions.
+
+## Ideas
+
+* Change skillpoint gain per level
+* Adjust difficulty of skill checks
+* Adjust health and mana regen
+* Adjust hunger gain/loss

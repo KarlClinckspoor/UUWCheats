@@ -1,30 +1,30 @@
-1 Counter({0: 4145, -1: 3317, 1: 2538}) {'critical_failure': 0.3317, 'failure': 0.4145, 'corrected_failure': 0.7462, 'success': 0.2538, 'critical_success': 0.0}
-2 Counter({0: 4098, 1: 2998, -1: 2904}) {'critical_failure': 0.2904, 'failure': 0.4098, 'corrected_failure': 0.7002, 'success': 0.2998, 'critical_success': 0.0}
-3 Counter({0: 4191, 1: 3195, -1: 2614}) {'critical_failure': 0.2614, 'failure': 0.4191, 'corrected_failure': 0.6805, 'success': 0.3195, 'critical_success': 0.0}
-4 Counter({0: 4191, 1: 3588, -1: 2221}) {'critical_failure': 0.2221, 'failure': 0.4191, 'corrected_failure': 0.6412, 'success': 0.3588, 'critical_success': 0.0}
-5 Counter({0: 4164, 1: 3840, -1: 1996}) {'critical_failure': 0.1996, 'failure': 0.4164, 'corrected_failure': 0.616, 'success': 0.384, 'critical_success': 0.0}
-6 Counter({1: 4167, 0: 4161, -1: 1672}) {'critical_failure': 0.1672, 'failure': 0.4161, 'corrected_failure': 0.5833, 'success': 0.4167, 'critical_success': 0.0}
-7 Counter({1: 4210, 0: 4197, -1: 1271, 2: 322}) {'critical_failure': 0.1271, 'failure': 0.4197, 'corrected_failure': 0.5468, 'success': 0.421, 'critical_success': 0.0322}
-8 Counter({0: 4211, 1: 4156, -1: 953, 2: 680}) {'critical_failure': 0.0953, 'failure': 0.4211, 'corrected_failure': 0.5164, 'success': 0.4156, 'critical_success': 0.068}
-9 Counter({0: 4202, 1: 4181, 2: 948, -1: 669}) {'critical_failure': 0.0669, 'failure': 0.4202, 'corrected_failure': 0.4871, 'success': 0.4181, 'critical_success': 0.0948}
-10 Counter({1: 4235, 0: 4139, 2: 1309, -1: 317}) {'critical_failure': 0.0317, 'failure': 0.4139, 'corrected_failure': 0.4456, 'success': 0.4235, 'critical_success': 0.1309}
-11 Counter({0: 4207, 1: 4206, 2: 1587}) {'critical_failure': 0.0, 'failure': 0.4207, 'corrected_failure': 0.4207, 'success': 0.4206, 'critical_success': 0.1587}
-12 Counter({1: 4208, 0: 3938, 2: 1854}) {'critical_failure': 0.0, 'failure': 0.3938, 'corrected_failure': 0.3938, 'success': 0.4208, 'critical_success': 0.1854}
-13 Counter({1: 4281, 0: 3510, 2: 2209}) {'critical_failure': 0.0, 'failure': 0.351, 'corrected_failure': 0.351, 'success': 0.4281, 'critical_success': 0.2209}
-14 Counter({1: 4213, 0: 3278, 2: 2509}) {'critical_failure': 0.0, 'failure': 0.3278, 'corrected_failure': 0.3278, 'success': 0.4213, 'critical_success': 0.2509}
-15 Counter({1: 4078, 0: 2988, 2: 2934}) {'critical_failure': 0.0, 'failure': 0.2988, 'corrected_failure': 0.2988, 'success': 0.4078, 'critical_success': 0.2934}
-16 Counter({1: 4236, 2: 3293, 0: 2471}) {'critical_failure': 0.0, 'failure': 0.2471, 'corrected_failure': 0.2471, 'success': 0.4236, 'critical_success': 0.3293}
-17 Counter({1: 4152, 2: 3574, 0: 2274}) {'critical_failure': 0.0, 'failure': 0.2274, 'corrected_failure': 0.2274, 'success': 0.4152, 'critical_success': 0.3574}
-18 Counter({1: 4122, 2: 3985, 0: 1893}) {'critical_failure': 0.0, 'failure': 0.1893, 'corrected_failure': 0.1893, 'success': 0.4122, 'critical_success': 0.3985}
-19 Counter({2: 4270, 1: 4178, 0: 1552}) {'critical_failure': 0.0, 'failure': 0.1552, 'corrected_failure': 0.1552, 'success': 0.4178, 'critical_success': 0.427}
-20 Counter({2: 4487, 1: 4213, 0: 1300}) {'critical_failure': 0.0, 'failure': 0.13, 'corrected_failure': 0.13, 'success': 0.4213, 'critical_success': 0.4487}
-21 Counter({2: 4724, 1: 4263, 0: 1013}) {'critical_failure': 0.0, 'failure': 0.1013, 'corrected_failure': 0.1013, 'success': 0.4263, 'critical_success': 0.4724}
-22 Counter({2: 5120, 1: 4199, 0: 681}) {'critical_failure': 0.0, 'failure': 0.0681, 'corrected_failure': 0.0681, 'success': 0.4199, 'critical_success': 0.512}
-23 Counter({2: 5467, 1: 4231, 0: 302}) {'critical_failure': 0.0, 'failure': 0.0302, 'corrected_failure': 0.0302, 'success': 0.4231, 'critical_success': 0.5467}
-24 Counter({2: 5778, 1: 4222}) {'critical_failure': 0.0, 'failure': 0.0, 'corrected_failure': 0.0, 'success': 0.4222, 'critical_success': 0.5778}
-25 Counter({2: 6123, 1: 3877}) {'critical_failure': 0.0, 'failure': 0.0, 'corrected_failure': 0.0, 'success': 0.3877, 'critical_success': 0.6123}
-26 Counter({2: 6521, 1: 3479}) {'critical_failure': 0.0, 'failure': 0.0, 'corrected_failure': 0.0, 'success': 0.3479, 'critical_success': 0.6521}
-27 Counter({2: 6830, 1: 3170}) {'critical_failure': 0.0, 'failure': 0.0, 'corrected_failure': 0.0, 'success': 0.317, 'critical_success': 0.683}
-28 Counter({2: 7085, 1: 2915}) {'critical_failure': 0.0, 'failure': 0.0, 'corrected_failure': 0.0, 'success': 0.2915, 'critical_success': 0.7085}
-29 Counter({2: 7390, 1: 2610}) {'critical_failure': 0.0, 'failure': 0.0, 'corrected_failure': 0.0, 'success': 0.261, 'critical_success': 0.739}
-30 Counter({2: 7780, 1: 2220}) {'critical_failure': 0.0, 'failure': 0.0, 'corrected_failure': 0.0, 'success': 0.222, 'critical_success': 0.778}
+1 Counter({0: 419245, -1: 322927, 1: 257828}) {'critical_failure': 0.322927, 'failure': 0.419245, 'corrected_failure': 0.742172, 'success': 0.257828, 'critical_success': 0.0}
+2 Counter({0: 419235, -1: 290401, 1: 290364}) {'critical_failure': 0.290401, 'failure': 0.419235, 'corrected_failure': 0.709636, 'success': 0.290364, 'critical_success': 0.0}
+3 Counter({0: 419760, 1: 322663, -1: 257577}) {'critical_failure': 0.257577, 'failure': 0.41976, 'corrected_failure': 0.677337, 'success': 0.322663, 'critical_success': 0.0}
+4 Counter({0: 419456, 1: 354610, -1: 225934}) {'critical_failure': 0.225934, 'failure': 0.419456, 'corrected_failure': 0.64539, 'success': 0.35461, 'critical_success': 0.0}
+5 Counter({0: 419196, 1: 386356, -1: 194448}) {'critical_failure': 0.194448, 'failure': 0.419196, 'corrected_failure': 0.613644, 'success': 0.386356, 'critical_success': 0.0}
+6 Counter({0: 419703, 1: 419648, -1: 160649}) {'critical_failure': 0.160649, 'failure': 0.419703, 'corrected_failure': 0.580352, 'success': 0.419648, 'critical_success': 0.0}
+7 Counter({0: 419540, 1: 419121, -1: 129405, 2: 31934}) {'critical_failure': 0.129405, 'failure': 0.41954, 'corrected_failure': 0.548945, 'success': 0.419121, 'critical_success': 0.031934}
+8 Counter({0: 420254, 1: 418604, -1: 96184, 2: 64958}) {'critical_failure': 0.096184, 'failure': 0.420254, 'corrected_failure': 0.516438, 'success': 0.418604, 'critical_success': 0.064958}
+9 Counter({0: 419829, 1: 419029, 2: 96704, -1: 64438}) {'critical_failure': 0.064438, 'failure': 0.419829, 'corrected_failure': 0.484267, 'success': 0.419029, 'critical_success': 0.096704}
+10 Counter({0: 419401, 1: 419107, 2: 129000, -1: 32492}) {'critical_failure': 0.032492, 'failure': 0.419401, 'corrected_failure': 0.451893, 'success': 0.419107, 'critical_success': 0.129}
+11 Counter({0: 419728, 1: 418834, 2: 161438}) {'critical_failure': 0.0, 'failure': 0.419728, 'corrected_failure': 0.419728, 'success': 0.418834, 'critical_success': 0.161438}
+12 Counter({1: 419868, 0: 387567, 2: 192565}) {'critical_failure': 0.0, 'failure': 0.387567, 'corrected_failure': 0.387567, 'success': 0.419868, 'critical_success': 0.192565}
+13 Counter({1: 418233, 0: 355959, 2: 225808}) {'critical_failure': 0.0, 'failure': 0.355959, 'corrected_failure': 0.355959, 'success': 0.418233, 'critical_success': 0.225808}
+14 Counter({1: 418529, 0: 323107, 2: 258364}) {'critical_failure': 0.0, 'failure': 0.323107, 'corrected_failure': 0.323107, 'success': 0.418529, 'critical_success': 0.258364}
+15 Counter({1: 419764, 0: 290285, 2: 289951}) {'critical_failure': 0.0, 'failure': 0.290285, 'corrected_failure': 0.290285, 'success': 0.419764, 'critical_success': 0.289951}
+16 Counter({1: 419452, 2: 322050, 0: 258498}) {'critical_failure': 0.0, 'failure': 0.258498, 'corrected_failure': 0.258498, 'success': 0.419452, 'critical_success': 0.32205}
+17 Counter({1: 419036, 2: 355042, 0: 225922}) {'critical_failure': 0.0, 'failure': 0.225922, 'corrected_failure': 0.225922, 'success': 0.419036, 'critical_success': 0.355042}
+18 Counter({1: 418849, 2: 387335, 0: 193816}) {'critical_failure': 0.0, 'failure': 0.193816, 'corrected_failure': 0.193816, 'success': 0.418849, 'critical_success': 0.387335}
+19 Counter({1: 420214, 2: 418516, 0: 161270}) {'critical_failure': 0.0, 'failure': 0.16127, 'corrected_failure': 0.16127, 'success': 0.420214, 'critical_success': 0.418516}
+20 Counter({2: 452476, 1: 419282, 0: 128242}) {'critical_failure': 0.0, 'failure': 0.128242, 'corrected_failure': 0.128242, 'success': 0.419282, 'critical_success': 0.452476}
+21 Counter({2: 485079, 1: 418468, 0: 96453}) {'critical_failure': 0.0, 'failure': 0.096453, 'corrected_failure': 0.096453, 'success': 0.418468, 'critical_success': 0.485079}
+22 Counter({2: 516024, 1: 419150, 0: 64826}) {'critical_failure': 0.0, 'failure': 0.064826, 'corrected_failure': 0.064826, 'success': 0.41915, 'critical_success': 0.516024}
+23 Counter({2: 548881, 1: 419017, 0: 32102}) {'critical_failure': 0.0, 'failure': 0.032102, 'corrected_failure': 0.032102, 'success': 0.419017, 'critical_success': 0.548881}
+24 Counter({2: 580458, 1: 419542}) {'critical_failure': 0.0, 'failure': 0.0, 'corrected_failure': 0.0, 'success': 0.419542, 'critical_success': 0.580458}
+25 Counter({2: 613975, 1: 386025}) {'critical_failure': 0.0, 'failure': 0.0, 'corrected_failure': 0.0, 'success': 0.386025, 'critical_success': 0.613975}
+26 Counter({2: 645038, 1: 354962}) {'critical_failure': 0.0, 'failure': 0.0, 'corrected_failure': 0.0, 'success': 0.354962, 'critical_success': 0.645038}
+27 Counter({2: 678007, 1: 321993}) {'critical_failure': 0.0, 'failure': 0.0, 'corrected_failure': 0.0, 'success': 0.321993, 'critical_success': 0.678007}
+28 Counter({2: 711361, 1: 288639}) {'critical_failure': 0.0, 'failure': 0.0, 'corrected_failure': 0.0, 'success': 0.288639, 'critical_success': 0.711361}
+29 Counter({2: 741713, 1: 258287}) {'critical_failure': 0.0, 'failure': 0.0, 'corrected_failure': 0.0, 'success': 0.258287, 'critical_success': 0.741713}
+30 Counter({2: 773660, 1: 226340}) {'critical_failure': 0.0, 'failure': 0.0, 'corrected_failure': 0.0, 'success': 0.22634, 'critical_success': 0.77366}

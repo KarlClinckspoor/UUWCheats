@@ -94,7 +94,7 @@ These are provided with minimal testing
 #### Increase inventory carry capacity on level up (untested!)
 
 * Formula is (str * 13) + 300, in units of 0.1 stone (check!). By altering the multiplier and base values, we can increase this.
-* Note how the carry weight is fixed at the start of the playthrough, but it's updated when leveling up... It sure would be cool to add some stat gain per level.
+* Note how the carry weight is fixed at the start of the playthrough, but it's updated when leveling up because the same function is called in character generation and levelup... It sure would be cool to add some stat gain per level, but that's very difficult to do without messing up the executable.
 
 | offset | Original | New value                          | Meaning                               |
 |--------|----------|------------------------------------|---------------------------------------|
@@ -123,6 +123,39 @@ These are provided with minimal testing
 | 9AE22  | 3        | Anything lower than 3 (0, 1, 2) | Represents the right bit shift. A shift of 3 is equivalent to dividing by 2^3=8. |
 
 * Found in function `CalculateHealthManaWeightValues_ovr154_93`
+
+#### Change experience required for level ups (untested!)
+
+* There's a table that displays the experience required for leveling up. These values, multiplied by 500, are the thresholds required.
+
+
+| offset | Original | New value | Meaning                                            |
+|--------|----------|-----------|----------------------------------------------------|
+| 69371  | 0        | 0         | lvl 1, Better not change this                      |
+| 69372  | 1        | 1         | lvl 2, 500d, better not change this                |
+| 69373  | 2        | 2         | lvl 3, 1000d, better not change this               |
+| 69374  | 3        | 3         | lvl 4, 1500d, better not change this               |
+| 69375  | 4        | 3         | lvl 5, 2000d, better not change this               |
+| 69376  | 6        | 5 or 6    | lvl 6, 3000d, could change to 2500 (5h)            |
+| 69377  | 8        | <8        | lvl 7, 4000d, could be 3000d (6), you get the idea |
+| 69378  | 0C       | <0C       | lvl 8, 6000d                                       |
+| 69379  | 10       | <10       | lvl 9, 8000d                                       |
+| 6937A  | 18       | <18       | lvl 10, 12000d                                     |
+| 6937B  | 20       | <20       | lvl 11, 16000d                                     |
+| 6937C  | 30       | <30       | lvl 12, 24000d                                     |
+| 6937D  | 40       | <40       | lvl 13, 32000d                                     |
+| 6937E  | 60       | <60       | lvl 14, 48000d                                     |
+| 6937F  | 80       | <80       | lvl 15, 64000d                                     |
+| 69380  | C0       | <C0       | lvl 16, 96000d                                     |
+
+* Found in `LevelUpTable_dseg_67d6_8E1`.
+
+* Alternatively, one can change the multiplier from 500d (01F4h) to something else. For example, if you want the multiplier to be 250d, convert this to hex (00FAh), then fill in the bytes as required.
+
+| offset | Original | New value | Meaning                                               |
+|--------|----------|-----------|-------------------------------------------------------|
+| 35199  | F4       | FA        | Forms the lower byte. New value is equivalent to 250d |
+| 3519A  | 01       | 00        | Forms the upper byte                                  |
 
 ## TODOs
 

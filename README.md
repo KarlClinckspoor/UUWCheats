@@ -77,19 +77,52 @@ These are provided with minimal testing
 
 #### Allow sequential Lore checks on the same item (mildly tested)
 
-| offset | Original | New value |
-|--------|----------|-----------|
-| 28DA0  | 04       | 00        |
+| offset | Original | New value | Meaning                                                                                                |
+|--------|----------|-----------|--------------------------------------------------------------------------------------------------------|
+| 28DA0  | 04       | 00        | This value represents a test that is made. 0x04 means, originally, "this item was analyzed previously" |
 
 #### Every skill check is a critical success (untested!)
 
-| offset | Original | New value |
-|--------|---------|-----------|
-| 35022  | 01      | 02        |
-| 3502B  | 33      | 66        |
-| 3502C  | C0      | 90        |
-| 35030  | FF      | 02        |
-| 35031  | FF      | 00        |
+| offset | Original | New value | Meaning                                                                                                         |
+|--------|----------|-----------|-----------------------------------------------------------------------------------------------------------------|
+| 35022  | 01       | 02        | This, and the following values, are just patches to control the flow of that function to always return success. |
+| 3502B  | 33       | 66        |                                                                                                                 |
+| 3502C  | C0       | 90        |                                                                                                                 |
+| 35030  | FF       | 02        |                                                                                                                 |
+| 35031  | FF       | 00        |                                                                                                                 |
+
+#### Increase inventory carry capacity on level up (untested!)
+
+* Formula is (str * 13) + 300, in units of 0.1 stone (check!). By altering the multiplier and base values, we can increase this.
+* Note how the carry weight is fixed at the start of the playthrough, but it's updated when leveling up... It sure would be cool to add some stat gain per level.
+
+| offset | Original | New value                          | Meaning                               |
+|--------|----------|------------------------------------|---------------------------------------|
+| 9AE03  | 1E       | Anything up to FF                  | Represents the base value. 0x1E = 30. |
+| 9ADCF  | 05       | Anything lower than 05, but not 00 | Represents the divisor. 0x05 = 5.     |
+
+* Found in function `CalculateHealthManaWeightValues_ovr154_93`
+
+#### Increase player max vitality gain on level up (untested!)
+
+* Formula is 30+(str * level)/5. By altering the base value or the divisor, we can increase this.
+
+| offset | Original | New value                          | Meaning                               |
+|--------|----------|------------------------------------|---------------------------------------|
+| 9AE03  | 1E       | Anything up to FF                  | Represents the base value. 0x1E = 30. |
+| 9ADCF  | 05       | Anything lower than 05, but not 00 | Represents the divisor. 0x05 = 5.     |
+
+* Found in function `CalculateHealthManaWeightValues_ovr154_93`
+
+#### Increase player max Mana value gain on level up (untested!)
+
+* Formula is (Mana skill + 1) * Int / 8. We could alter this by changing the base value or the divisor, but the base value would require adding bytes, so only the divisor is possible right now.
+
+| offset | Original | New value                       | Meaning                                                                          |
+|--------|----------|---------------------------------|----------------------------------------------------------------------------------|
+| 9AE22  | 3        | Anything lower than 3 (0, 1, 2) | Represents the right bit shift. A shift of 3 is equivalent to dividing by 2^3=8. |
+
+* Found in function `CalculateHealthManaWeightValues_ovr154_93`
 
 ## TODOs
 

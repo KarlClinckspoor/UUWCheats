@@ -157,9 +157,22 @@ These are provided with minimal testing
 | 35199  | F4       | FA        | Forms the lower byte. New value is equivalent to 250d |
 | 3519A  | 01       | 00        | Forms the upper byte                                  |
 
+#### Increase number of skill points earned (untested!)
+
+* Apparently every 1500d (05DCh) exp points you gain a skill point. By changing this value, you can earn skill points faster. For example, let's make this 1000d (3E8h).
+* 
+  | offset | Original | New value | Meaning                                               |
+  |--------|----------|-----------|-------------------------------------------------------|
+  | 350BB  | DC       | E8        | Forms the lower byte. New value is equivalent to 250d |
+  | 350BC  | 05       | 03        | Forms the upper byte                                  |
+
+* Found in `seg038_342C_CA`, `Experience_seg038_342C_45`
+
 ## TODOs
 
 * Check how easy it is to transfer the cheats from the Underworlds, and the UltimaHacks versions.
+* Test the hacks, at least a little.
+* Revise how UltimaHacks project adds functions and see if I can inject some functions for custom content.
 
 ## Ideas
 

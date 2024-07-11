@@ -126,7 +126,7 @@ These are provided with minimal testing
 
 #### Change experience required for level ups (untested!)
 
-* There's a table that displays the experience required for leveling up. These values, multiplied by 500, are the thresholds required.
+* There's a table that displays the experience required for leveling up. These values, multiplied by 500d, are the thresholds required. These are in units of 0.1 XP (meaning lvl2 requires 50 xp.)
 
 
 | offset | Original | New value | Meaning                                            |
@@ -168,15 +168,59 @@ These are provided with minimal testing
 
 * Found in `seg038_342C_CA`, `Experience_seg038_342C_45`
 
+#### Increase number of experience points (untested!)
+
+* In the game, for whatever reason, there's a division of the acquired experience points by 2. This can be changed to 1.
+ 
+  | offset | Original | New value | Meaning                 |
+  |--------|----------|-----------|-------------------------|
+  | 3504A  | 02       | 01        | Pretty self-explanatory |
+
+* As a side-effect, this will lower the variability in experience point acquisition.
+* Found in `Experience_seg038_342C_45`.
+
+#### Prevent death (untested!)
+
+* In the game, every *tick*, the game checks for a lot of stuff. One of those is if your health is below 0, and then calls a function that handles death and resurrection. If we remove the call to that, we can circumvent death. In UW2, this also means fights in the pits, guards in the castle and dreaming in dream world.
+* Note that if you get stuck somewhere and attempt to warp using death, if you have this, you'll be stuck (until you change the executable back).
+
+| offset | Original | New value | Meaning                          |
+|--------|----------|-----------|----------------------------------|
+| 27F46  | 9A       | 90        | Changing the code from           |
+| 27F47  | 75       | 90        | calling another function         |
+| 27F48  | 00       | 90        | to NOP (no operation, opcode 90) |
+| 27F49  | 99       | 90        |                                  |
+| 27F4A  | 65       | 90        |                                  |
+
+* Found in `PlayerUpdateTick_seg026_2716_8`
+
+#### Increase natural health regen (untested!)
+
+* `ovr135_21F`, `PlayerHPRegenerationChange_ovr156_3ED`, `ManaHealthRegeneration_dseg_67d6_190A`
+
+#### Increase natural mana regen (untested!)
+
+* `ManaChange_ovr156_33F`, `ManaHealthRegeneration_dseg_67d6_190A`
+
+#### Longer lasting light sources (untested!)
+
+* `UpdateInventoryLightSources_ovr135_4E3`
+
+#### Longer lasting spells (untested!)
+
+* `ovr135_180`
+
+
 ## TODOs
 
 * Check how easy it is to transfer the cheats from the Underworlds, and the UltimaHacks versions.
 * Test the hacks, at least a little.
 * Revise how UltimaHacks project adds functions and see if I can inject some functions for custom content.
+  * And also more space for cmb.dat
+  * Two cheats, one to move to other worlds, and another to move within the world, would be hyper cool. But maybe it'd be easier to edit the player and world data of saved games, then load them.
+* 
 
 ## Ideas
 
-* Change skillpoint gain per level
 * Adjust difficulty of skill checks
-* Adjust health and mana regen
 * Adjust hunger gain/loss

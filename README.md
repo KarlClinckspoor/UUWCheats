@@ -204,11 +204,43 @@ These are provided with minimal testing
 
 #### Longer lasting light sources (untested!)
 
-* `UpdateInventoryLightSources_ovr135_4E3`
+* Instead of providing the duration requested by the function, we can substitute that for 1 always, decreasing the quality penalty less rapidly. This will also affect light decrease when sleeping!
+* Found in `UpdateInventoryLightSources_ovr135_4E3`
 
-#### Longer lasting spells (untested!)
+| offset | Original | New value | Meaning                            |
+|--------|----------|-----------|------------------------------------|
+| 92F74  | 8B       | B4        | Changes instruction to MOV         |
+| 92F75  | 46       | 01        | Decreases stability always by 1    |
+| 92F76  | 06       | 90        | NOP, to fill it the remaining byte |
 
-* `ovr135_180`
+* We can also remove the call to this entirely. This won't remove the call that happens when you sleep! Let's keep that interesting mechanic.
+
+| offset | Original | New value | Meaning                  |
+|--------|----------|-----------|--------------------------|
+| 92BB3  | E8       | 90        | Overwrites call with NOP |
+| 92BB4  | 2D       | 90        |                          | 
+| 92BB5  | 03       | 90        |                          |
+
+* Found in `ovr135_1B3`
+
+#### Neverending spells (untested!)
+
+* A function is called periodically to reduce the stability of spells. After the stability period is over, the spell gets deactivated.
+* This *shouldn't* make you unable to deactivate spells manually.
+
+* We can control this either by removing the stability decrease (`ovr135_180`)
+ 
+| offset | Original | New value | Meaning                               |
+|--------|----------|-----------|---------------------------------------|
+| 92B82  | 4A       | 90        | Removes the stability decrement.      |
+
+* or removing the call to the deactivation routine (`ovr135_165`).
+
+| offset | Original | New value | Meaning                               |
+|--------|----------|-----------|---------------------------------------|
+| 92B65  | E8       | 90        | Removes the call to cancel the spell. |
+| 92B66  | 98       | 90        |                                       |
+| 92B67  | FE       | 90        |                                       |
 
 
 ## TODOs

@@ -196,7 +196,14 @@ These are provided with minimal testing
 
 #### Increase natural health regen (untested!)
 
-* `ovr135_21F`, `PlayerHPRegenerationChange_ovr156_3ED`, `ManaHealthRegeneration_dseg_67d6_190A`
+* Every so often, the game regenerates your HP slowly by 1 unit at a time. We can increase this.
+* Funnily, the game uses a negative value to indicate the change should be fixed, not variable (i.e. with some RNG).
+
+| offset | Original | New value   | Meaning                                                                         |
+|--------|----------|-------------|---------------------------------------------------------------------------------|
+| 92C16  | FF       | FE, FD, ... | The two's complement value. FF is -1 (regens 1 HP), FE is -2 (regens 2 HP), etc |
+
+* Found in `HealthRegen_ovr135_215`.
 
 #### Increase natural mana regen (untested!)
 

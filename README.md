@@ -207,7 +207,14 @@ These are provided with minimal testing
 
 #### Increase natural mana regen (untested!)
 
-* `ManaChange_ovr156_33F`, `ManaHealthRegeneration_dseg_67d6_190A`
+* Every so often, the game regenerates your mana slowly by 1 unit at a time. We can increase this.
+* Funnily, the game uses a negative value to indicate the change should be fixed, not variable (i.e. with some RNG).
+
+| offset | Original | New value   | Meaning                                                                         |
+|--------|----------|-------------|---------------------------------------------------------------------------------|
+| 92C2F  | FF       | FE, FD, ... | The two's complement value. FF is -1 (regens 1 MP), FE is -2 (regens 2 MP), etc |
+
+* Found in `ManaRegen_ovr135_22E`.
 
 #### Longer lasting light sources (untested!)
 

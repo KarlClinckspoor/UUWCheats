@@ -14,58 +14,7 @@ Some time later, when viewing another player going through UUW, I remembered tha
 
 ## Applying the patches
 
-Right now, you'll have to download a hex editor and edit the executables yourself. I use [HxD](https://mh-nexus.de/en/hxd/). I'll provide an offset (position) in the file and the values that need to be changed.
-
-## Workflow
-
-To make these patches, I load up the disassembly file from the Reverse Engineering project in IDA Pro 5. Then, I search for text occurrences of whatever I want to study. For example, I looked around for "Lore", among the results, you can find this:
-
-![lore1.PNG](lore1.PNG)
-
-This looks very promising. First, there's some mention of the player's lore skill, then there's a call to a function named "SkillCheck...". So if I can modify the file around this region, I'll get the result I want.
-
-However, this is easier said than done, especially when looking at assembly. I load up the executable on [Ghidra](https://ghidra-sre.org/). To sync Ghidra and IDA, I do something a bit dumb (I'm looking into transferring the labels from one program to another). In IDA, I change to Hex view around a instruction, copy the whole line, then on Ghidra I search though Memory, and paste the line I copied earlier. Sometimes the result is garbled, so I click on the listing and use the disassemble command (D) to convert it to something useful. I then compare the listing from IDA and Ghidra, to confirm they're equal, and look at the reconstructed C code Ghidra provides.
-
-Here's an example. I focused on the "test DI,0x4" line, which has a useful magic constant, copied the line highlighted in yellow on the left (this or the next line are fine), and the corresponding location in Ghidra on the right, with the "test DI,0x4" and the "if ((uVar4 & 4) == 0)" corresponding C code. This looks promising.
-
-![lore2.PNG](lore2.PNG)
-
-Looking up the listing in UnderworldGodot, the [correspondence is quite close](https://github.com/hankmorgan/UnderworldGodot/blob/e20d3d3590bef80021414db895514b71259330a7/src/interaction/look.cs#L10):
-
-```C#
-public static int LoreCheck(uwObject obj)
-{
-    if (
-        CanBeIdentified(obj)
-        )
-    {//can be identified
-        if ((obj.heading & 0x4) == 0)
-        {//no attempt has been made yet. try and id now
-            var result = (int)playerdat.SkillCheck(playerdat.Lore, 8);
-            result++;
-            if (result == 0)
-            {
-                result = 1;
-            }
-            if (result < (obj.heading & 0x3))
-            {
-                result = obj.heading & 0x3;//make sure identification does not lose a previous ID attempt if bit 3 has changed due to a lore skill increase
-            }
-            obj.heading = (short)(4 | result); //store result and flag that attempt was made.
-            return result; //1,2 or 3
-        }
-        else
-        {
-            return obj.heading & 0x3; //return previous result
-        }
-    }
-    return 1;//fail or cannot be identified
-}
-```
-
-If I want the lore test to be repeatable, I can modify the test. Since it checks if the third bit is set (`0x100` is `4` decimal), I can just change `4` to be `0`, meaning this test is skipped, since anything ANDed with 0 is 0. With Ghidra, I can use the "Patch Instruction" function to modify the file, then use "File-Export Program" in the "Original File" format with a good name. This is convenient. To get the linear offset, I go back to IDA, because it provides the offset at the bottom of the hex view window (since I haven't yet figured out the weird offset addressing Ghidra provides).
-
-The result of this is just a set of offsets and bytes that you have to change.
+Right now, you'll have to download a hex editor and edit the executables yourself. I use [HxD](https://mh-nexus.de/en/hxd/) and [ImHex](https://github.com/WerWolv/ImHex). I'll provide an offset (position) in the file and the values that need to be changed. I've also made a very simple patcher in Python, but you're going to need to code in your own patches for the moment.
 
 ## Cheats themselves
 
@@ -266,9 +215,70 @@ These are provided with minimal testing
 * Revise how UltimaHacks project adds functions and see if I can inject some functions for custom content.
   * And also more space for cmb.dat
   * Two cheats, one to move to other worlds, and another to move within the world, would be hyper cool. But maybe it'd be easier to edit the player and world data of saved games, then load them.
-* 
 
 ## Ideas
 
 * Adjust difficulty of skill checks
 * Adjust hunger gain/loss
+ 
+## Workflow
+
+### General
+
+I load up the disassembly file from the [UWReverseEngineering Project](https://github.com/hankmorgan/UWReverseEngineering) in IDA Pro 5 from [scummvm](https://www.scummvm.org/news/20180331/). I start looking around, noting down stuff I would like to change. When I notice something interesting, I look up the file address by moving the mouse cursor to the instruction, then I go into the hex view and find that address. IDA will highlight the instruction, and it's always in the order of Opcode-arguments. I look into whatever value I want to change (for example, a value of 05h is being subtracted from another value, the disassembly can be `-- 05`), then I write down the exact offset of that byte and write it in my notes. If I have more doubts about what the function is doing, I use Ghidra and consult the [UnderworldGodot](https://github.com/hankmorgan/UnderworldGodot) project.
+
+### Example workflow
+
+To make these patches, I load up the disassembly file from the Reverse Engineering project in IDA Pro 5. Then, I search for text occurrences of whatever I want to study. For example, I looked around for "Lore", among the results, you can find this:
+
+![lore1.PNG](lore1.PNG)
+
+This looks very promising. First, there's some mention of the player's lore skill, then there's a call to a function named "SkillCheck...". So if I can modify the file around this region, I'll get the result I want.
+
+However, this is easier said than done, especially when looking at assembly. I load up the executable on [Ghidra](https://ghidra-sre.org/). To sync Ghidra and IDA, I do something a bit dumb (I'm looking into transferring the labels from one program to another). In IDA, I change to Hex view around a instruction, copy the whole line, then on Ghidra I search though Memory, and paste the line I copied earlier. Sometimes the result is garbled, so I click on the listing and use the disassemble command (D) to convert it to something useful. I then compare the listing from IDA and Ghidra, to confirm they're equal, and look at the reconstructed C code Ghidra provides.
+
+Here's an example. I focused on the "test DI,0x4" line, which has a useful magic constant, copied the line highlighted in yellow on the left (this or the next line are fine), and the corresponding location in Ghidra on the right, with the "test DI,0x4" and the "if ((uVar4 & 4) == 0)" corresponding C code. This looks promising.
+
+![lore2.PNG](lore2.PNG)
+
+Looking up the listing in UnderworldGodot, the [correspondence is quite close](https://github.com/hankmorgan/UnderworldGodot/blob/e20d3d3590bef80021414db895514b71259330a7/src/interaction/look.cs#L10):
+
+```C#
+public static int LoreCheck(uwObject obj)
+{
+    if (
+        CanBeIdentified(obj)
+        )
+    {//can be identified
+        if ((obj.heading & 0x4) == 0)
+        {//no attempt has been made yet. try and id now
+            var result = (int)playerdat.SkillCheck(playerdat.Lore, 8);
+            result++;
+            if (result == 0)
+            {
+                result = 1;
+            }
+            if (result < (obj.heading & 0x3))
+            {
+                result = obj.heading & 0x3;//make sure identification does not lose a previous ID attempt if bit 3 has changed due to a lore skill increase
+            }
+            obj.heading = (short)(4 | result); //store result and flag that attempt was made.
+            return result; //1,2 or 3
+        }
+        else
+        {
+            return obj.heading & 0x3; //return previous result
+        }
+    }
+    return 1;//fail or cannot be identified
+}
+```
+
+If I want the lore test to be repeatable, I can modify the test. Since it checks if the third bit is set (`0x100` is `4` decimal), I can just change `4` to be `0`, meaning this test is skipped, since anything ANDed with 0 is 0. With Ghidra, I can use the "Patch Instruction" function to modify the file, then use "File-Export Program" in the "Original File" format with a good name. This is convenient. To get the linear offset, I go back to IDA, because it provides the offset at the bottom of the hex view window (since I haven't yet figured out the weird offset addressing Ghidra provides).
+
+The result of this is just a set of offsets and bytes that you have to change.
+
+## Thanks
+
+* To hankmorgan for his disassembly/reverse engineering project and the Godot engine projects
+* To all people involved in reverse engineering these games, starting with the file formats.

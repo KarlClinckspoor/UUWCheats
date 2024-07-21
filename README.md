@@ -93,13 +93,15 @@ These are provided with minimal testing
 
 #### Increase inventory carry capacity on level up (untested!)
 
-* Formula is (str * 13) + 300, in units of 0.1 stone (check!). By altering the multiplier and base values, we can increase this.
+* Formula is (str * 13d) + 300d, in units of 0.1 stone (check!). By altering the multiplier and base values, we can increase this.
 * Note how the carry weight is fixed at the start of the playthrough, but it's updated when leveling up because the same function is called in character generation and levelup... It sure would be cool to add some stat gain per level, but that's very difficult to do without messing up the executable.
 
-| offset | Original | New value                          | Meaning                               |
-|--------|----------|------------------------------------|---------------------------------------|
-| 9AE03  | 1E       | Anything up to FF                  | Represents the base value. 0x1E = 30. |
-| 9ADCF  | 05       | Anything lower than 05, but not 00 | Represents the divisor. 0x05 = 5.     |
+| offset | Original | New value                  | Meaning                                                         |
+|--------|----------|----------------------------|-----------------------------------------------------------------|
+| 9AE3A  | 0D       | Anything greater than 0D   | Represents the multiplier, least significant byte. 000Dh = 13d. |
+| 9AE3B  | 00       | Anything greater than 0D   | Represents the multiplier, most significant byte.               |
+| 9AE3F  | 2C       | Anything greater than 012C | Represents the offset, least significant byte. 012Ch = 300d     |
+| 9AE40  | 01       |                            | Represents the offset, most significant byte.                   |
 
 * Found in function `CalculateHealthManaWeightValues_ovr154_93`
 
@@ -109,8 +111,8 @@ These are provided with minimal testing
 
 | offset | Original | New value                          | Meaning                               |
 |--------|----------|------------------------------------|---------------------------------------|
-| 9AE03  | 1E       | Anything up to FF                  | Represents the base value. 0x1E = 30. |
-| 9ADCF  | 05       | Anything lower than 05, but not 00 | Represents the divisor. 0x05 = 5.     |
+| 9AE03  | 1E       | Anything greater than 1E           | Represents the base value. 1Eh = 30d. |
+| 9ADFD  | 05       | Anything lower than 05, but not 00 | Represents the divisor. 05h = 5d.     |
 
 * Found in function `CalculateHealthManaWeightValues_ovr154_93`
 

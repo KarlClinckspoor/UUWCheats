@@ -1,0 +1,175 @@
+{
+  "patches": [
+    {
+      "meaning": "Allow sequential Lore checks on the same item",
+      "diffs": [
+        {
+          "offset": "28DA0",
+          "original": "4",
+          "new": "1"
+        }
+      ]
+    },
+    {
+      "meaning": "Every skill check is a critical success",
+      "diffs": [
+        {
+          "offset": "35022",
+          "original": "1",
+          "new": "2"
+        },
+        {
+          "offset": "3502B",
+          "original": "33",
+          "new": "66"
+        },
+        {
+          "offset": "3502C",
+          "original": "C0",
+          "new": "90"
+        },
+        {
+          "offset": "35030",
+          "original": "FF",
+          "new": "2"
+        },
+        {
+          "offset": "35031",
+          "original": "FF",
+          "new": "0"
+        }
+      ]
+    },
+    {
+      "meaning": "Increase inventory carry capacity on level up",
+      "diffs": [
+        {
+          "offset": "9AE3A",
+          "original": "D",
+          "new": "E"
+        },
+        {
+          "offset": "9AE3B",
+          "original": "0",
+          "new": "0"
+        },
+        {
+          "offset": "9AE3F",
+          "original": "2C",
+          "new": "2D"
+        },
+        {
+          "offset": "9AE40",
+          "original": "1",
+          "new": "1"
+        }
+      ]
+    },
+    {
+      "meaning": "Increase max vitality on level up",
+      "diffs": [
+        {
+          "offset": "9AE03",
+          "original": "1E",
+          "new": "1F"
+        },
+        {
+          "offset": "9ADFD",
+          "original": "5",
+          "new": "4"
+        }
+      ]
+    },
+    {
+      "meaning": "Increase max mana on level up",
+      "diffs": [
+        {
+          "offset": "9AE22",
+          "original": "3",
+          "new": "2"
+        }
+      ]
+    },
+    {
+      "meaning": "Change experience for level up",
+      "diffs": [
+        {
+          "offset": "69376",
+          "original": "6",
+          "new": "5"
+        },
+        {
+          "offset": "69377",
+          "original": "8",
+          "new": "6"
+        },
+        {
+          "offset": "35199",
+          "original": "F4",
+          "new": "FA"
+        },
+        {
+          "offset": "3519A",
+          "original": "1",
+          "new": "0"
+        }
+      ]
+    },
+    {
+      "meaning": "Increase skill points earned on level up",
+      "diffs": [
+        {
+          "offset": "350BB",
+          "original": "DC",
+          "new": "E8"
+        },
+        {
+          "offset": "350BC",
+          "original": "5",
+          "new": "3"
+        }
+      ]
+    },
+    {
+      "meaning": "Increase exp points gained",
+      "diffs": [
+        {
+          "offset": "3504A",
+          "original": "2",
+          "new": "1"
+        }
+      ]
+    },
+    {
+      "meaning": "Prevents death",
+      "diffs": [
+        {
+          "offset": "27F46",
+          "original": "9A",
+          "new": "90"
+        },
+        {
+          "offset": "27F47",
+          "original": "75",
+          "new": "90"
+        },
+        {
+          "offset": "27F48",
+          "original": "0",
+          "new": "90"
+        },
+        {
+          "offset": "27F49",
+          "original": "99",
+          "new": "90"
+        },
+        {
+          "offset": "27F4A",
+          "original": "65",
+          "new": "90"
+        }
+      ]
+    }
+  ],
+  "exec_hash": "BF233ABBFEB5B664564B954FC70C615C4023AD2276DD3326FCD34700C10AFDB9"
+}

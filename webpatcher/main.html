@@ -1,33 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
+
+
 <head>
     <meta charset="UTF-8">
     <title>UW2 GOG Patcher</title>
 </head>
+
 <body>
+    <script src="build/patcher.js"></script>
     <div id="root">
         <div id="patch_sequential_lore">
             <h2>Allow sequential lore checks <span style="color: red">(mildly tested)</span> </h2> <br>
             <p>
-                Allows sequential Lore checks on the same item. In vanilla, when an item is checked, a flag is set in the item
-                information that prevents further checks. This flag is cleared when you increase your Lore skill, for items in your
+                Allows sequential Lore checks on the same item. In vanilla, when an item is checked, a flag is set in
+                the item
+                information that prevents further checks. This flag is cleared when you increase your Lore skill, for
+                items in your
                 inventory. This patch ignores this flag.
             </p>
             <input type="checkbox" id="allow_sequential_lore_checks"> <span>Apply</span>
         </div>
         <div id="patch_critical_skill_checks">
-            <h2>Every skill check is a critical success</h2> <input type="checkbox" id="critical_skill_checks"> <span>Apply</span>
+            <h2>Every skill check is a critical success <span style="color: red">(untested!)</span></h2> <input type="checkbox" id="critical_skill_checks">
+            <span>Apply</span>
         </div>
         <div id="patch_increase_carry_weight">
-            <h2>Increase inventory carry capacity on level up</h2> <input type="checkbox" id="increase_carry_weight"> <span>AAA</span> <br>
-            <span> Multiplier, base value is 13</span><input type="number" id="carry_weight_multiplier" value="13"> <br>
-            <span> Offset, base value is 300</span><input type="number" id="carry_weight_offset" value="300"> <br>
+            <h2>Increase inventory carry capacity on level up <span style="color: red">(untested!)</span></h2> <input type="checkbox" id="increase_carry_weight">
+            <span>Apply</span> <br>
+            <span> Multiplier, in decimal, base value is 13</span><input type="number" id="carry_weight_multiplier" value="13"> <br>
+            <span> Offset, in decimal, base value is 300</span><input type="number" id="carry_weight_offset" value="300"> <br>
         </div>
         <div id="finalizing">
+            <p></p>
             <button id="load_executable" onclick="loadExecutable()">Load Executable</button>
             <span id="executable_hash">SHA256=</span> <span id="hash_ok">HASH_OK</span> <br>
-            <button id="apply_patches" onclick="applyPatches()">Apply Patches</button> <span id="patches_applied">PATCHES APPLIED SUCCESSFULLY</span>
+            <button id="apply_patches" onclick="applyPatches()">Apply Patches</button> <span
+                id="patches_applied">PATCHES APPLIED SUCCESSFULLY</span>
         </div>
     </div>
 </body>
+
 </html>

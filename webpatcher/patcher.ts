@@ -6,18 +6,6 @@ async function loadExecutable() {
     const fileInput = <HTMLInputElement>document.getElementById("path_to_executable")!;
     const filePath = fileInput.files[0];
     if (filePath) {
-        // const reader = new FileReader();
-        // reader.onload = async (e) => {
-        //     var temp = <ArrayBuffer>(e.target.result);
-        //     buffer = new Uint8Array(temp);
-        //     if (buffer) {
-        //         var hash = await getHash();
-        //         document.getElementById("executable_hash").innerText = hash;
-        //         document.getElementById("hash_ok").innerText = hash === uw2_gog_hash ? "MATCHES" : "NO MATCH";
-        //     }
-        // }
-        // reader.readAsArrayBuffer(filePath);
-
         buffer = new Uint8Array(await (<Blob> filePath).arrayBuffer());
         if (buffer) {
             var hash = await getHash();

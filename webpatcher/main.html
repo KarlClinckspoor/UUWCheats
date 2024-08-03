@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-
 <head>
     <meta charset="UTF-8">
     <title>UW2 GOG Patcher</title>
@@ -10,6 +9,11 @@
 <body>
     <script src="build/patcher.js"></script>
     <div id="root">
+        <div id="loading">
+            <input id="path_to_executable" type="file" onchange="loadExecutable()">
+            <span id="executable_hash">SHA256=</span> <span id="hash_ok"></span>
+        </div>
+
         <div id="patch_sequential_lore">
             <h2>Allow sequential lore checks <span style="color: red">(mildly tested)</span> </h2> <br>
             <p>
@@ -21,11 +25,13 @@
             </p>
             <input type="checkbox" class="options" id="allow_sequential_lore_checks"> <span>Apply</span>
         </div>
+
         <div id="patch_critical_skill_checks">
             <h2>Every skill check is a critical success <span style="color: red">(untested!)</span></h2> <input
                 type="checkbox" id="critical_skill_checks">
             <span>Apply</span>
         </div>
+
         <div id="patch_increase_carry_weight">
             <h2>Increase inventory carry capacity on level up <span style="color: red">(untested!)</span></h2>
             <input type="checkbox" class="options" id="increase_carry_weight">
@@ -36,9 +42,6 @@
                 value="300"> <br>
         </div>
         <div id="finalizing">
-            <p></p>
-            <button id="load_executable" onclick="loadExecutable()">Load Executable</button>
-            <span id="executable_hash">SHA256=</span> <span id="hash_ok">HASH_OK</span> <br>
             <button id="apply_patches" onclick="applyPatches()">Apply Patches</button> <span
                 id="patches_applied">PATCHES APPLIED SUCCESSFULLY</span>
         </div>

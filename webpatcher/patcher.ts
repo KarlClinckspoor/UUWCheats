@@ -1,12 +1,38 @@
 var buffer: Uint8Array;
 
-function loadExecutable() {
-    // Query for file
-    // Load it into memory
-    // Compute hash
-    // Compare with required hash
+async function loadExecutable() {
     var uw2_gog_hash = "BF233ABBFEB5B664564B954FC70C615C4023AD2276DD3326FCD34700C10AFDB9";
-    buffer = new Uint8Array(675184);
+    // buffer = new Uint8Array(675184);
+    const fileInput = <HTMLInputElement>document.getElementById("path_to_executable")!;
+    const filePath = fileInput.files[0];
+    if (filePath) {
+        // const reader = new FileReader();
+        // reader.onload = async (e) => {
+        //     var temp = <ArrayBuffer>(e.target.result);
+        //     buffer = new Uint8Array(temp);
+        //     if (buffer) {
+        //         var hash = await getHash();
+        //         document.getElementById("executable_hash").innerText = hash;
+        //         document.getElementById("hash_ok").innerText = hash === uw2_gog_hash ? "MATCHES" : "NO MATCH";
+        //     }
+        // }
+        // reader.readAsArrayBuffer(filePath);
+
+        buffer = new Uint8Array(await (<Blob> filePath).arrayBuffer());
+        if (buffer) {
+            var hash = await getHash();
+            document.getElementById("executable_hash").innerText = hash;
+            document.getElementById("hash_ok").innerText = hash === uw2_gog_hash ? "MATCHES" : "NO MATCH";
+        };
+
+    }
+}
+
+async function getHash() {
+    const hashBuffer = await window.crypto.subtle.digest("SHA-256", buffer);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const hashHex = hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
+    return hashHex.toUpperCase();
 }
 
 function applyPatches() {

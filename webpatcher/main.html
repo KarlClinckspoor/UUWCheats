@@ -41,10 +41,66 @@
             <span> Offset, in decimal, base value is 300</span><input type="number" id="carry_weight_offset"
                 value="300"> <br>
         </div>
+        <div id="patch_increase_max_vitality_on_level_up">
+            <h2> Increase max vitality on level up <span style="color: red">(untested!)</span></h2>
+            <p> Formula is 30 + (str * level) / 5 </p>
+            <input type="checkbox" class="options" id="increase_max_vitality_on_level_up">
+            <span> Apply </span> <br>
+            <span> Offset, in decimal, base value is 30</span>
+             <input type="number" id="max_vitality_offset" value="30"> <br>
+            <span> Divisor, base value is 5</span>
+             <input type="number" id="max_vitality_divisor" value="5"> <br>
+        </div>
+
+        <div id="patch_increase_max_mana_on_level_up">
+            <h2> Increase max mana on level up <span style="color: red">(untested!)</span></h2>
+            <p> Formula is (Mana skill + 1) * Int / 8 </p>
+            <input type="checkbox" class="options" id="increase_max_mana_on_level_up">
+            <span>Apply</span> <br>
+            <span> Divisor, base value is 8, must be a multiple of 2 </span> <input type="number" id="max_mana_divisor">
+        </div>
+
+        <div id="patch_change_experience_required_for_level_ups">
+            <h2> Change experience required for level ups <span style="color: red">(untested!)</span></h2>
+            <input type="checkbox" class="options" id="change_experience_required_for_level_ups">
+            <span>Apply</span> <br>
+            <span> Multiplier of the values below, base value is 500</span> <input type="text" id="exp_required_level_up_multiplier" value="500" onchange="updateEXP()">
+        </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th> Level </th>
+                        <th> Original value </th>
+                        <th> New value </th>
+                        <th> Converted EXP (value * multiplier / 10) </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr> <td>1</td>  <td>0</td>   <td><input type="text" value="0"   id="exp_lvl_1" onchange="updateEXP()"></td>  <td id="exp1"> 0</td></tr>
+                    <tr> <td>2</td>  <td>1</td>   <td><input type="text" value="1"   id="exp_lvl_2" onchange="updateEXP()"></td>  <td id="exp2"> 50</td></tr>
+                    <tr> <td>3</td>  <td>2</td>   <td><input type="text" value="2"   id="exp_lvl_3" onchange="updateEXP()"></td>  <td id="exp3"> 100</td></tr>
+                    <tr> <td>4</td>  <td>3</td>   <td><input type="text" value="3"   id="exp_lvl_4" onchange="updateEXP()"></td>  <td id="exp4"> 150</td></tr>
+                    <tr> <td>5</td>  <td>4</td>   <td><input type="text" value="4"   id="exp_lvl_5" onchange="updateEXP()"></td>  <td id="exp5"> 200</td></tr>
+                    <tr> <td>6</td>  <td>6</td>   <td><input type="text" value="6"   id="exp_lvl_6" onchange="updateEXP()"></td>  <td id="exp6"> 300</td></tr>
+                    <tr> <td>7</td>  <td>8</td>   <td><input type="text" value="8"   id="exp_lvl_7" onchange="updateEXP()"></td>  <td id="exp7"> 400</td></tr>
+                    <tr> <td>8</td>  <td>12</td>  <td><input type="text" value="12"  id="exp_lvl_8" onchange="updateEXP()"></td>  <td id="exp8"> 600</td></tr>
+                    <tr> <td>9</td>  <td>16</td>  <td><input type="text" value="16"  id="exp_lvl_9" onchange="updateEXP()"></td>  <td id="exp9"> 800</td></tr>
+                    <tr> <td>10</td> <td>24</td>  <td><input type="text" value="24"  id="exp_lvl_10" onchange="updateEXP()"></td> <td id="exp10"> 1200</td></tr>
+                    <tr> <td>11</td> <td>32</td>  <td><input type="text" value="32"  id="exp_lvl_11" onchange="updateEXP()"></td> <td id="exp11"> 1600</td></tr>
+                    <tr> <td>12</td> <td>48</td>  <td><input type="text" value="48"  id="exp_lvl_12" onchange="updateEXP()"></td> <td id="exp12"> 2400</td></tr>
+                    <tr> <td>13</td> <td>64</td>  <td><input type="text" value="64"  id="exp_lvl_13" onchange="updateEXP()"></td> <td id="exp13"> 3200</td></tr>
+                    <tr> <td>14</td> <td>96</td>  <td><input type="text" value="96"  id="exp_lvl_14" onchange="updateEXP()"></td> <td id="exp14"> 4800</td></tr>
+                    <tr> <td>15</td> <td>128</td> <td><input type="text" value="128" id="exp_lvl_15" onchange="updateEXP()"></td> <td id="exp15"> 6400</td></tr>
+                    <tr> <td>16</td> <td>192</td> <td><input type="text" value="192" id="exp_lvl_16" onchange="updateEXP()"></td> <td id="exp16"> 9600</td></tr>
+                </tbody>
+            </table>
+        </div>
+
         <div id="finalizing">
             <button id="apply_patches" onclick="applyPatches()">Apply Patches</button> <span
                 id="patches_applied">PATCHES APPLIED SUCCESSFULLY</span>
         </div>
+
     </div>
 </body>
 

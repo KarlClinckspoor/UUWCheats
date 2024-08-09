@@ -12,7 +12,6 @@ async function loadExecutable() {
             document.getElementById("executable_hash").innerText = hash;
             document.getElementById("hash_ok").innerText = hash === uw2_gog_hash ? "MATCHES" : "NO MATCH";
         };
-
     }
 }
 
@@ -35,6 +34,7 @@ function applyPatches() {
         "increase_carry_weight": applyCarryWeightPatch,
         "critical_skill_checks": applyCriticalSkillChecks,
         "allow_sequential_lore_checks": applySequentialLoreChecks,
+        "increase_max_vitality_on_level_up": applyIncreaseVitalityOnLevelUp,
         default: () => { console.log("Unknown patch. BUG! REPORT!"); return; }
     }
     for (var input of selectedInputs) {
@@ -73,4 +73,84 @@ function applyCarryWeightPatch() {
     buffer[0x9AE3B] = multiplier_high;
     buffer[0x9AE3F] = offset_low;
     buffer[0x9AE40] = offset_high;
+}
+
+function applyIncreaseVitalityOnLevelUp() {
+    if (buffer[0x9AE03] != 0x1E || buffer[0x9ADFD] != 0x05) {
+        throw new Error("Original buffer doesn't match expected value at 'applyIncreaseVitalityOnLevelUp'!");
+    }
+    var offset = parseInt((<HTMLInputElement>document.getElementById("max_vitality_offset")!).value);
+    var divisor = parseInt((<HTMLInputElement>document.getElementById("max_vitality_divisor")!).value);
+    if (divisor <= 0) {
+        throw new Error("Divisor must be greater than 0!");
+    }
+    buffer[0x9AE03] = offset & 0xFF;
+    buffer[0x9ADFD] = divisor & 0xFF;
+}
+
+function applyIncreaseManaOnLevelUp() {
+    if (buffer[0x03]) {
+        throw new Error("Original buffer doesn't match expected value at 'applyIncreaseManaOnLevelUp'!");
+    }
+    var divisor = parseInt((<HTMLInputElement>document.getElementById("max_mana_divisor")!).value);
+    if (divisor <= 0) {
+        throw new Error("Divisor must be greater than 0!");
+    }
+    if (divisor % 2 != 0) {
+        throw new Error("Divisor must be a multiple of 2!");
+    }
+    buffer[0x03] = divisor / 2;
+}
+
+function updateEXP() {
+    function updateLine(num: number) {
+        var expVal = parseInt((<HTMLInputElement>document.getElementById("exp_lvl_" + num.toString())).value);
+        var row = <HTMLTableElement>document.getElementById("exp" + num.toString())!;
+        var multiplier = parseInt((<HTMLInputElement>document.getElementById("exp_required_level_up_multiplier")).value);
+        row.innerText = (expVal * multiplier / 10).toString();
+    }
+    for (let i = 1; i <= 16; i++) {
+        updateLine(i);
+    }
+}
+
+function applyEXPThresholds() {
+    var original_offsets_and_values = {
+        0x69371: 0x00,
+        0x69372: 0x01,
+        0x69373: 0x02,
+        0x69374: 0x03,
+        0x69375: 0x04,
+        0x69376: 0x06,
+        0x69377: 0x08,
+        0x69378: 0x0C,
+        0x69379: 0x10,
+        0x6937A: 0x18,
+        0x6937B: 0x20,
+        0x6937C: 0x30,
+        0x6937D: 0x40,
+        0x6937E: 0x60,
+        0x6937F: 0x80,
+        0x69380: 0xC0,
+    }
+    for(let i = 0x69371; i <= 0x69380; i++) {
+        if (buffer[i] != original_offsets_and_values[i]) {
+            throw new Error("Original buffer doesn't match expected value at 'applyEXPThresholds'!");
+        }
+    }
+    if (buffer[0x35199] != 0xF4 || buffer[0x3519A] != 0x01) {
+        throw new Error("Original buffer doesn't match expected value at 'applyEXPThresholds'!");
+    }
+    var multiplier = parseInt((<HTMLInputElement>document.getElementById("exp_required_level_up_multiplier")).value);
+    let multiplier_low: number, multiplier_high: number;
+    [multiplier_low, multiplier_high] = (separateShortIntoTwoBytes(multiplier));
+    buffer[0x35199] = multiplier_low;
+    buffer[0x3519A] = multiplier_high;
+
+    var base = 0x69371;
+    for(let i = 1; i <= 16; i++) {
+        var ithExpVal = parseInt((<HTMLInputElement>document.getElementById("exp_lvl_" + i.toString())).value);
+        buffer[base] = ithExpVal & 0xFF;
+        base++;
+    }
 }

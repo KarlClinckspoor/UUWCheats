@@ -8,7 +8,7 @@
             "type": "msedge",
             "request": "launch",
             "name": "Open main.html",
-            "file": "c:\\Users\\karl9\\OneDrive\\UnderworldStudy\\UUWCheats\\webpatcher\\main.html",
+            "file": "webpatcher\\main.html",
             "preLaunchTask": "tsc: build - webpatcher/tsconfig.json"
         }
     ]

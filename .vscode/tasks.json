@@ -7,8 +7,21 @@
 			"problemMatcher": [
 				"$tsc"
 			],
-			"group": "build",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			},
 			"label": "tsc: build - webpatcher/tsconfig.json"
+		},
+		{
+			"type": "typescript",
+			"tsconfig": "webpatcher/tsconfig.json",
+			"option": "watch",
+			"problemMatcher": [
+				"$tsc-watch"
+			],
+			"group": "build",
+			"label": "tsc: watch - webpatcher/tsconfig.json"
 		}
 	]
 }

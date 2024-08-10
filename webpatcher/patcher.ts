@@ -9,7 +9,7 @@ async function loadExecutable() {
     const fileInput = <HTMLInputElement>document.getElementById("path_to_executable")!;
     const filePath = fileInput.files[0];
     if (filePath) {
-        buffer = new Uint8Array(await (<Blob> filePath).arrayBuffer());
+        buffer = new Uint8Array(await (<Blob>filePath).arrayBuffer());
         if (buffer) {
             var hash = await getHash();
             document.getElementById("executable_hash").innerText = hash;
@@ -47,7 +47,7 @@ function applyPatches() {
         "increase_mana_regen": applyMPRegen,
         "longer_lasting_light_source": applyLongerLastingLightSource,
         "longer_lasting_spells": applyLongerLastingSpells,
-        default: () => {throw new Error("Unknown patch. BUG! REPORT!");}
+        default: () => { throw new Error("Unknown patch. BUG! REPORT!"); }
     }
     for (var input of selectedInputs) {
         functionMaps[input.id](buffer);
@@ -145,7 +145,7 @@ function applyEXPThresholds() {
         0x6937F: 0x80,
         0x69380: 0xC0,
     }
-    for(let i = 0x69371; i <= 0x69380; i++) {
+    for (let i = 0x69371; i <= 0x69380; i++) {
         if (buffer[i] != original_offsets_and_values[i]) {
             throw new Error("Original buffer doesn't match expected value at 'applyEXPThresholds'!");
         }
@@ -160,7 +160,7 @@ function applyEXPThresholds() {
     buffer[0x3519A] = multiplier_high;
 
     var base = 0x69371;
-    for(let i = 1; i <= 16; i++) {
+    for (let i = 1; i <= 16; i++) {
         var ithExpVal = parseInt((<HTMLInputElement>document.getElementById("exp_lvl_" + i.toString())).value);
         buffer[base] = ithExpVal & 0xFF;
         base++;
@@ -190,10 +190,10 @@ function applyPreventDeath() {
     if (buffer[0x27F46] != 0x9A || buffer[0x27F47] != 0x75 || buffer[0x27F48] != 0x00 || buffer[0x27F49] != 0x99 || buffer[0x27F4A] != 0x65) {
         throw new Error("Original buffer doesn't match expected value at 'applyPreventDeath'!");
     }
-    buffer[0x27F46] = 0x90; 
-    buffer[0x27F47] = 0x90; 
-    buffer[0x27F48] = 0x90; 
-    buffer[0x27F49] = 0x90; 
+    buffer[0x27F46] = 0x90;
+    buffer[0x27F47] = 0x90;
+    buffer[0x27F48] = 0x90;
+    buffer[0x27F49] = 0x90;
     buffer[0x27F4A] = 0x90;
 }
 
@@ -220,8 +220,7 @@ function applyMPRegen() {
 }
 
 function applyLongerLastingLightSource() {
-    if (buffer[0x92F74] != 0x8B || buffer[0x92F75] != 0x46 || buffer[0x92F76] != 0x06 || buffer[0x92BB3] != 0xE8 || buffer[0x92BB4] != 0x2D || buffer[0x92BB5] != 0x03) 
-    {
+    if (buffer[0x92F74] != 0x8B || buffer[0x92F75] != 0x46 || buffer[0x92F76] != 0x06 || buffer[0x92BB3] != 0xE8 || buffer[0x92BB4] != 0x2D || buffer[0x92BB5] != 0x03) {
         throw new Error("Original buffer doesn't match expected value at 'applyLongerLastingLightSource'!");
     }
     var doSpeed = (<HTMLInputElement>document.getElementById("light_source_speed")).checked;

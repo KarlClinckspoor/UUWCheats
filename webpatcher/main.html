@@ -47,9 +47,9 @@
             <input type="checkbox" class="options" id="increase_max_vitality_on_level_up">
             <span> Apply </span> <br>
             <span> Offset, in decimal, base value is 30</span>
-             <input type="number" id="max_vitality_offset" value="30"> <br>
+            <input type="number" id="max_vitality_offset" value="30"> <br>
             <span> Divisor, base value is 5</span>
-             <input type="number" id="max_vitality_divisor" value="5"> <br>
+            <input type="number" id="max_vitality_divisor" value="5"> <br>
         </div>
 
         <div id="patch_increase_max_mana_on_level_up">
@@ -67,35 +67,115 @@
             <span> Multiplier of the values below, base value is 500</span> <input type="text"
                 id="exp_required_level_up_multiplier" value="500" onchange="updateEXP()">
         </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th> Level </th>
-                        <th> Original value </th>
-                        <th> New value </th>
-                        <th> Converted EXP (value * multiplier / 10) </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr> <td>1</td>  <td>0</td>   <td><input type="text" value="0"   id="exp_lvl_1" onchange="updateEXP()"></td>  <td id="exp1"> 0</td></tr>
-                    <tr> <td>2</td>  <td>1</td>   <td><input type="text" value="1"   id="exp_lvl_2" onchange="updateEXP()"></td>  <td id="exp2"> 50</td></tr>
-                    <tr> <td>3</td>  <td>2</td>   <td><input type="text" value="2"   id="exp_lvl_3" onchange="updateEXP()"></td>  <td id="exp3"> 100</td></tr>
-                    <tr> <td>4</td>  <td>3</td>   <td><input type="text" value="3"   id="exp_lvl_4" onchange="updateEXP()"></td>  <td id="exp4"> 150</td></tr>
-                    <tr> <td>5</td>  <td>4</td>   <td><input type="text" value="4"   id="exp_lvl_5" onchange="updateEXP()"></td>  <td id="exp5"> 200</td></tr>
-                    <tr> <td>6</td>  <td>6</td>   <td><input type="text" value="6"   id="exp_lvl_6" onchange="updateEXP()"></td>  <td id="exp6"> 300</td></tr>
-                    <tr> <td>7</td>  <td>8</td>   <td><input type="text" value="8"   id="exp_lvl_7" onchange="updateEXP()"></td>  <td id="exp7"> 400</td></tr>
-                    <tr> <td>8</td>  <td>12</td>  <td><input type="text" value="12"  id="exp_lvl_8" onchange="updateEXP()"></td>  <td id="exp8"> 600</td></tr>
-                    <tr> <td>9</td>  <td>16</td>  <td><input type="text" value="16"  id="exp_lvl_9" onchange="updateEXP()"></td>  <td id="exp9"> 800</td></tr>
-                    <tr> <td>10</td> <td>24</td>  <td><input type="text" value="24"  id="exp_lvl_10" onchange="updateEXP()"></td> <td id="exp10"> 1200</td></tr>
-                    <tr> <td>11</td> <td>32</td>  <td><input type="text" value="32"  id="exp_lvl_11" onchange="updateEXP()"></td> <td id="exp11"> 1600</td></tr>
-                    <tr> <td>12</td> <td>48</td>  <td><input type="text" value="48"  id="exp_lvl_12" onchange="updateEXP()"></td> <td id="exp12"> 2400</td></tr>
-                    <tr> <td>13</td> <td>64</td>  <td><input type="text" value="64"  id="exp_lvl_13" onchange="updateEXP()"></td> <td id="exp13"> 3200</td></tr>
-                    <tr> <td>14</td> <td>96</td>  <td><input type="text" value="96"  id="exp_lvl_14" onchange="updateEXP()"></td> <td id="exp14"> 4800</td></tr>
-                    <tr> <td>15</td> <td>128</td> <td><input type="text" value="128" id="exp_lvl_15" onchange="updateEXP()"></td> <td id="exp15"> 6400</td></tr>
-                    <tr> <td>16</td> <td>192</td> <td><input type="text" value="192" id="exp_lvl_16" onchange="updateEXP()"></td> <td id="exp16"> 9600</td></tr>
-                </tbody>
-            </table>
-        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th> Level </th>
+                    <th> Original value </th>
+                    <th> New value </th>
+                    <th> Converted EXP (value * multiplier / 10) </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>0</td>
+                    <td><input type="text" value="0" id="exp_lvl_1" onchange="updateEXP()"></td>
+                    <td id="exp1"> 0</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>1</td>
+                    <td><input type="text" value="1" id="exp_lvl_2" onchange="updateEXP()"></td>
+                    <td id="exp2"> 50</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>2</td>
+                    <td><input type="text" value="2" id="exp_lvl_3" onchange="updateEXP()"></td>
+                    <td id="exp3"> 100</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>3</td>
+                    <td><input type="text" value="3" id="exp_lvl_4" onchange="updateEXP()"></td>
+                    <td id="exp4"> 150</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>4</td>
+                    <td><input type="text" value="4" id="exp_lvl_5" onchange="updateEXP()"></td>
+                    <td id="exp5"> 200</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>6</td>
+                    <td><input type="text" value="6" id="exp_lvl_6" onchange="updateEXP()"></td>
+                    <td id="exp6"> 300</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>8</td>
+                    <td><input type="text" value="8" id="exp_lvl_7" onchange="updateEXP()"></td>
+                    <td id="exp7"> 400</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>12</td>
+                    <td><input type="text" value="12" id="exp_lvl_8" onchange="updateEXP()"></td>
+                    <td id="exp8"> 600</td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>16</td>
+                    <td><input type="text" value="16" id="exp_lvl_9" onchange="updateEXP()"></td>
+                    <td id="exp9"> 800</td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td>24</td>
+                    <td><input type="text" value="24" id="exp_lvl_10" onchange="updateEXP()"></td>
+                    <td id="exp10"> 1200</td>
+                </tr>
+                <tr>
+                    <td>11</td>
+                    <td>32</td>
+                    <td><input type="text" value="32" id="exp_lvl_11" onchange="updateEXP()"></td>
+                    <td id="exp11"> 1600</td>
+                </tr>
+                <tr>
+                    <td>12</td>
+                    <td>48</td>
+                    <td><input type="text" value="48" id="exp_lvl_12" onchange="updateEXP()"></td>
+                    <td id="exp12"> 2400</td>
+                </tr>
+                <tr>
+                    <td>13</td>
+                    <td>64</td>
+                    <td><input type="text" value="64" id="exp_lvl_13" onchange="updateEXP()"></td>
+                    <td id="exp13"> 3200</td>
+                </tr>
+                <tr>
+                    <td>14</td>
+                    <td>96</td>
+                    <td><input type="text" value="96" id="exp_lvl_14" onchange="updateEXP()"></td>
+                    <td id="exp14"> 4800</td>
+                </tr>
+                <tr>
+                    <td>15</td>
+                    <td>128</td>
+                    <td><input type="text" value="128" id="exp_lvl_15" onchange="updateEXP()"></td>
+                    <td id="exp15"> 6400</td>
+                </tr>
+                <tr>
+                    <td>16</td>
+                    <td>192</td>
+                    <td><input type="text" value="192" id="exp_lvl_16" onchange="updateEXP()"></td>
+                    <td id="exp16"> 9600</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
     <div id="patch_number_of_skill_points_earned">
         <h2> Increase number of skill points earned <span style="color:red">(untested!)</span></h2>
@@ -118,17 +198,17 @@
         <p> Prevents you from dying by removing the call to the function that handles death. As a side effect, you can
             get stuck in places where a deathwarp would save you. In that case, you can run the original version and
             die, then load back this version.</p>
-        
+
     </div>
 
-    <div id="patch_increase_health_regen"> 
+    <div id="patch_increase_health_regen">
         <h2> Increase health regen <span style="color:red">(untested!)</span></h2>
         <input type="checkbox" class="options" id="increase_health_regen"> <span> Apply </span> <br>
         <p> Every so often, the game regenerated your HP slowly, 1 point at a time. This can be increased</p>
         <input type="text" id="health_regen" value="1">
     </div>
 
-    <div id="patch_increase_mana_regen"> 
+    <div id="patch_increase_mana_regen">
         <h2> Increase mana regen <span style="color:red">(untested!)</span></h2>
         <input type="checkbox" class="options" id="increase_mana_regen"> <span> Apply </span> <br>
         <p> Every so often, the game regenerated your MP slowly, 1 point at a time. This can be increased</p>
@@ -139,8 +219,10 @@
         <h2> Longer lasting light sources <span style="color:red">(untested!)</span></h2>
         <input type="checkbox" class="options" id="longer_lasting_light_sources"> <span> Apply </span> <br>
         <p> You can either reduce the speed at which light sources get spent, or remove that mechanic entirely</p>
-        <input type="radio" id="light_source_speed" name="light_source" checked value="speed"> <span> Reduce light source speed </span>
-        <input type="radio" id="light_source_disable" name="light_source" value="disable"> <span> Disable light source spending </span>
+        <input type="radio" id="light_source_speed" name="light_source" checked value="speed"> <span> Reduce light
+            source speed </span>
+        <input type="radio" id="light_source_disable" name="light_source" value="disable"> <span> Disable light source
+            spending </span>
     </div>
 
     <div id="patch_neverending_spells">
@@ -151,9 +233,9 @@
         <input type="radio" id="spell_disable" name="spell" value="disable"> <span> Disable spell usage </span>
     </div>
 
-        <div id="finalizing">
+    <div id="finalizing">
         <button id="apply_patches" onclick="applyPatches()">Apply Patches</button> <span id="patches_applied"></span>
-        </div>
+    </div>
 
     </div>
 </body>

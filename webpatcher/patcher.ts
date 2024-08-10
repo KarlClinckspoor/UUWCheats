@@ -1,4 +1,7 @@
 var buffer: Uint8Array;
+// TODO list:
+// * Create new exceptions for buffer mismatches and for wrong values
+// * Apply styling
 
 async function loadExecutable() {
     var uw2_gog_hash = "BF233ABBFEB5B664564B954FC70C615C4023AD2276DD3326FCD34700C10AFDB9";
@@ -35,7 +38,16 @@ function applyPatches() {
         "critical_skill_checks": applyCriticalSkillChecks,
         "allow_sequential_lore_checks": applySequentialLoreChecks,
         "increase_max_vitality_on_level_up": applyIncreaseVitalityOnLevelUp,
-        default: () => { console.log("Unknown patch. BUG! REPORT!"); return; }
+        "increase_max_mana_on_level_up": applyIncreaseManaOnLevelUp,
+        "change_experience_required_for_level_ups": applyEXPThresholds,
+        "increase_number_of_skill_points_earned": applyIncreaseNumberOfSkillPointsEarned,
+        "increase_exp_point_gain": applyIncreaseEXPPointGain,
+        "prevent_death": applyPreventDeath,
+        "increase_health_regen": applyHPRegen,
+        "increase_mana_regen": applyMPRegen,
+        "longer_lasting_light_source": applyLongerLastingLightSource,
+        "longer_lasting_spells": applyLongerLastingSpells,
+        default: () => {throw new Error("Unknown patch. BUG! REPORT!");}
     }
     for (var input of selectedInputs) {
         functionMaps[input.id](buffer);
@@ -152,5 +164,98 @@ function applyEXPThresholds() {
         var ithExpVal = parseInt((<HTMLInputElement>document.getElementById("exp_lvl_" + i.toString())).value);
         buffer[base] = ithExpVal & 0xFF;
         base++;
+    }
+}
+
+function applyIncreaseNumberOfSkillPointsEarned() {
+    if (buffer[0x350BB] != 0xDC || buffer[0x350BC] != 0x05) {
+        throw new Error("Original buffer doesn't match expected value at 'applyIncreaseNumberOfSkillPointsEarned'!");
+    }
+    var ratio = parseInt((<HTMLInputElement>document.getElementById("exp_to_skill_ratio")).value);
+    if (ratio <= 0) {
+        throw new Error("Conversion ratio must be greater than 0!");
+    }
+    buffer[0x350BB] = ratio & 0xFF;
+    buffer[0x350BC] = (ratio >> 8) & 0xFF;
+}
+
+function applyIncreaseEXPPointGain() {
+    if (buffer[0x3504A] != 0x02) {
+        throw new Error("Original buffer doesn't match expected value at 'applyIncreaseEXPPointGain'!");
+    }
+    buffer[0x3504A] = 0x01;
+}
+
+function applyPreventDeath() {
+    if (buffer[0x27F46] != 0x9A || buffer[0x27F47] != 0x75 || buffer[0x27F48] != 0x00 || buffer[0x27F49] != 0x99 || buffer[0x27F4A] != 0x65) {
+        throw new Error("Original buffer doesn't match expected value at 'applyPreventDeath'!");
+    }
+    buffer[0x27F46] = 0x90; 
+    buffer[0x27F47] = 0x90; 
+    buffer[0x27F48] = 0x90; 
+    buffer[0x27F49] = 0x90; 
+    buffer[0x27F4A] = 0x90;
+}
+
+function applyHPRegen() {
+    if (buffer[0x92C16] != 0xFF) {
+        throw new Error("Original buffer doesn't match expected value at 'applyHPRegen'!");
+    }
+    var newRegen = parseInt((<HTMLInputElement>document.getElementById("health_regen")).value);
+    if (newRegen < 0) {
+        throw new Error("Health regen must be greater than or equal to 0!");
+    }
+    buffer[0x92C16] = (newRegen * -1) & 0xFF;
+}
+
+function applyMPRegen() {
+    if (buffer[0x92C2F] != 0xFF) {
+        throw new Error("Original buffer doesn't match expected value at 'applyMPRegen'!");
+    }
+    var newRegen = parseInt((<HTMLInputElement>document.getElementById("mana_regen")).value);
+    if (newRegen < 0) {
+        throw new Error("Mana regen must be greater than or equal to 0!");
+    }
+    buffer[0x92C2F] = (newRegen * -1) & 0xFF;
+}
+
+function applyLongerLastingLightSource() {
+    if (buffer[0x92F74] != 0x8B || buffer[0x92F75] != 0x46 || buffer[0x92F76] != 0x06 || buffer[0x92BB3] != 0xE8 || buffer[0x92BB4] != 0x2D || buffer[0x92BB5] != 0x03) 
+    {
+        throw new Error("Original buffer doesn't match expected value at 'applyLongerLastingLightSource'!");
+    }
+    var doSpeed = (<HTMLInputElement>document.getElementById("light_source_speed")).checked;
+    var doDisable = (<HTMLInputElement>document.getElementById("light_source_disable")).checked;
+    if (doSpeed && doDisable) {
+        throw new Error("Light source speed and disable cannot both be enabled!");
+    }
+    if (doSpeed) {
+        buffer[0x92F74] = 0xB4;
+        buffer[0x92F75] = 0x01;
+        buffer[0x92F76] = 0x90;
+    }
+    if (doDisable) {
+        buffer[0x92BB3] = 0x90;
+        buffer[0x92BB4] = 0x90;
+        buffer[0x92BB5] = 0x90;
+    }
+}
+
+function applyLongerLastingSpells() {
+    if (buffer[0x92B82] != 0x40 || buffer[0x92B65] != 0xE8 || buffer[0x92B66] != 0x98 || buffer[0x92B67] != 0xFE) {
+        throw new Error("Original buffer doesn't match expected value at 'applyLongerLastingSpells'!");
+    }
+    var doSpeed = (<HTMLInputElement>document.getElementById("spell_speed")).checked;
+    var doDisable = (<HTMLInputElement>document.getElementById("spell_disable")).checked;
+    if (doSpeed && doDisable) {
+        throw new Error("Spell speed and disable cannot both be enabled!");
+    }
+    if (doSpeed) {
+        buffer[0x92B82] = 0x90;
+    }
+    if (doDisable) {
+        buffer[0x92B65] = 0x90;
+        buffer[0x92B66] = 0x90;
+        buffer[0x92B67] = 0x90;
     }
 }

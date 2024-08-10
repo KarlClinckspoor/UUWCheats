@@ -1,3 +1,5 @@
+# UW2 Cheats
+
 ## Introduction
 
 ### Objective
@@ -18,9 +20,9 @@ Right now, you'll have to download a hex editor and edit the executables yoursel
 
 ## Cheats themselves
 
-These are provided with minimal testing 
+These are provided with minimal testing
 
-### UUW2 original 
+### UUW2 original
 
 - SHA-256 checksum: BF233ABBFEB5B664564B954FC70C615C4023AD2276DD3326FCD34700C10AFDB9
 
@@ -42,8 +44,8 @@ These are provided with minimal testing
 
 #### Increase inventory carry capacity on level up (untested!)
 
-* Formula is (str * 13d) + 300d, in units of 0.1 stone (check!). By altering the multiplier and base values, we can increase this.
-* Note how the carry weight is fixed at the start of the playthrough, but it's updated when leveling up because the same function is called in character generation and levelup... It sure would be cool to add some stat gain per level, but that's very difficult to do without messing up the executable.
+- Formula is (str * 13d) + 300d, in units of 0.1 stone (check!). By altering the multiplier and base values, we can increase this.
+- Note how the carry weight is fixed at the start of the playthrough, but it's updated when leveling up because the same function is called in character generation and levelup... It sure would be cool to add some stat gain per level, but that's very difficult to do without messing up the executable.
 
 | offset | Original | New value                  | Meaning                                                         |
 |--------|----------|----------------------------|-----------------------------------------------------------------|
@@ -52,33 +54,32 @@ These are provided with minimal testing
 | 9AE3F  | 2C       | Anything greater than 012C | Represents the offset, least significant byte. 012Ch = 300d     |
 | 9AE40  | 01       |                            | Represents the offset, most significant byte.                   |
 
-* Found in function `CalculateHealthManaWeightValues_ovr154_93`
+- Found in function `CalculateHealthManaWeightValues_ovr154_93`
 
 #### Increase player max vitality gain on level up (untested!)
 
-* Formula is 30+(str * level)/5. By altering the base value or the divisor, we can increase this.
+- Formula is 30+(str * level)/5. By altering the base value or the divisor, we can increase this.
 
 | offset | Original | New value                          | Meaning                               |
 |--------|----------|------------------------------------|---------------------------------------|
 | 9AE03  | 1E       | Anything greater than 1E           | Represents the base value. 1Eh = 30d. |
 | 9ADFD  | 05       | Anything lower than 05, but not 00 | Represents the divisor. 05h = 5d.     |
 
-* Found in function `CalculateHealthManaWeightValues_ovr154_93`
+- Found in function `CalculateHealthManaWeightValues_ovr154_93`
 
 #### Increase player max Mana value gain on level up (untested!)
 
-* Formula is (Mana skill + 1) * Int / 8. We could alter this by changing the base value or the divisor, but the base value would require adding bytes, so only the divisor is possible right now.
+- Formula is (Mana skill + 1) * Int / 8. We could alter this by changing the base value or the divisor, but the base value would require adding bytes, so only the divisor is possible right now.
 
 | offset | Original | New value                       | Meaning                                                                          |
 |--------|----------|---------------------------------|----------------------------------------------------------------------------------|
 | 9AE22  | 3        | Anything lower than 3 (0, 1, 2) | Represents the right bit shift. A shift of 3 is equivalent to dividing by 2^3=8. |
 
-* Found in function `CalculateHealthManaWeightValues_ovr154_93`
+- Found in function `CalculateHealthManaWeightValues_ovr154_93`
 
 #### Change experience required for level ups (untested!)
 
-* There's a table that displays the experience required for leveling up. These values, multiplied by 500d, are the thresholds required. These are in units of 0.1 XP (meaning lvl2 requires 50 xp.)
-
+- There's a table that displays the experience required for leveling up. These values, multiplied by 500d, are the thresholds required. These are in units of 0.1 XP (meaning lvl2 requires 50 xp.)
 
 | offset | Original | New value | Meaning                                            |
 |--------|----------|-----------|----------------------------------------------------|
@@ -99,9 +100,9 @@ These are provided with minimal testing
 | 6937F  | 80       | <80       | lvl 15, 64000d                                     |
 | 69380  | C0       | <C0       | lvl 16, 96000d                                     |
 
-* Found in `LevelUpTable_dseg_67d6_8E1`.
+- Found in `LevelUpTable_dseg_67d6_8E1`.
 
-* Alternatively, one can change the multiplier from 500d (01F4h) to something else. For example, if you want the multiplier to be 250d, convert this to hex (00FAh), then fill in the bytes as required.
+- Alternatively, one can change the multiplier from 500d (01F4h) to something else. For example, if you want the multiplier to be 250d, convert this to hex (00FAh), then fill in the bytes as required.
 
 | offset | Original | New value | Meaning                                               |
 |--------|----------|-----------|-------------------------------------------------------|
@@ -110,30 +111,30 @@ These are provided with minimal testing
 
 #### Increase number of skill points earned (untested!)
 
-* Apparently every 1500d (05DCh) exp points you gain a skill point. By changing this value, you can earn skill points faster. For example, let's make this 1000d (3E8h).
-* 
+- Apparently every 1500d (05DCh) exp points you gain a skill point. By changing this value, you can earn skill points faster. For example, let's make this 1000d (3E8h).
+
   | offset | Original | New value | Meaning                                               |
   |--------|----------|-----------|-------------------------------------------------------|
   | 350BB  | DC       | E8        | Forms the lower byte. New value is equivalent to 250d |
   | 350BC  | 05       | 03        | Forms the upper byte                                  |
 
-* Found in `seg038_342C_CA`, `Experience_seg038_342C_45`
+- Found in `seg038_342C_CA`, `Experience_seg038_342C_45`
 
 #### Increase number of experience points (untested!)
 
-* In the game, for whatever reason, there's a division of the acquired experience points by 2. This can be changed to 1.
- 
+- In the game, for whatever reason, there's a division of the acquired experience points by 2. This can be changed to 1.
+
   | offset | Original | New value | Meaning                 |
   |--------|----------|-----------|-------------------------|
   | 3504A  | 02       | 01        | Pretty self-explanatory |
 
-* As a side-effect, this will lower the variability in experience point acquisition.
-* Found in `Experience_seg038_342C_45`.
+- As a side-effect, this will lower the variability in experience point acquisition.
+- Found in `Experience_seg038_342C_45`.
 
 #### Prevent death (untested!)
 
-* In the game, every *tick*, the game checks for a lot of stuff. One of those is if your health is below 0, and then calls a function that handles death and resurrection. If we remove the call to that, we can circumvent death. In UW2, this also means fights in the pits, guards in the castle and dreaming in dream world.
-* Note that if you get stuck somewhere and attempt to warp using death, if you have this, you'll be stuck (until you change the executable back).
+- In the game, every *tick*, the game checks for a lot of stuff. One of those is if your health is below 0, and then calls a function that handles death and resurrection. If we remove the call to that, we can circumvent death. In UW2, this also means fights in the pits, guards in the castle and dreaming in dream world.
+- Note that if you get stuck somewhere and attempt to warp using death, if you have this, you'll be stuck (until you change the executable back).
 
 | offset | Original | New value | Meaning                          |
 |--------|----------|-----------|----------------------------------|
@@ -143,34 +144,34 @@ These are provided with minimal testing
 | 27F49  | 99       | 90        |                                  |
 | 27F4A  | 65       | 90        |                                  |
 
-* Found in `PlayerUpdateTick_seg026_2716_8`
+- Found in `PlayerUpdateTick_seg026_2716_8`
 
 #### Increase natural health regen (untested!)
 
-* Every so often, the game regenerates your HP slowly by 1 unit at a time. We can increase this.
-* Funnily, the game uses a negative value to indicate the change should be fixed, not variable (i.e. with some RNG).
+- Every so often, the game regenerates your HP slowly by 1 unit at a time. We can increase this.
+- Funnily, the game uses a negative value to indicate the change should be fixed, not variable (i.e. with some RNG).
 
 | offset | Original | New value   | Meaning                                                                         |
 |--------|----------|-------------|---------------------------------------------------------------------------------|
 | 92C16  | FF       | FE, FD, ... | The two's complement value. FF is -1 (regens 1 HP), FE is -2 (regens 2 HP), etc |
 
-* Found in `HealthRegen_ovr135_215`.
+- Found in `HealthRegen_ovr135_215`.
 
 #### Increase natural mana regen (untested!)
 
-* Every so often, the game regenerates your mana slowly by 1 unit at a time. We can increase this.
-* Funnily, the game uses a negative value to indicate the change should be fixed, not variable (i.e. with some RNG).
+- Every so often, the game regenerates your mana slowly by 1 unit at a time. We can increase this.
+- Funnily, the game uses a negative value to indicate the change should be fixed, not variable (i.e. with some RNG).
 
 | offset | Original | New value   | Meaning                                                                         |
 |--------|----------|-------------|---------------------------------------------------------------------------------|
 | 92C2F  | FF       | FE, FD, ... | The two's complement value. FF is -1 (regens 1 MP), FE is -2 (regens 2 MP), etc |
 
-* Found in `ManaRegen_ovr135_22E`.
+- Found in `ManaRegen_ovr135_22E`.
 
 #### Longer lasting light sources (untested!)
 
-* Instead of providing the duration requested by the function, we can substitute that for 1 always, decreasing the quality penalty less rapidly. This will also affect light decrease when sleeping!
-* Found in `UpdateInventoryLightSources_ovr135_4E3`
+- Instead of providing the duration requested by the function, we can substitute that for 1 always, decreasing the quality penalty less rapidly. This will also affect light decrease when sleeping!
+- Found in `UpdateInventoryLightSources_ovr135_4E3`
 
 | offset | Original | New value | Meaning                            |
 |--------|----------|-----------|------------------------------------|
@@ -178,28 +179,28 @@ These are provided with minimal testing
 | 92F75  | 46       | 01        | Decreases stability always by 1    |
 | 92F76  | 06       | 90        | NOP, to fill it the remaining byte |
 
-* We can also remove the call to this entirely. This won't remove the call that happens when you sleep! Let's keep that interesting mechanic.
+- We can also remove the call to this entirely. This won't remove the call that happens when you sleep! Let's keep that interesting mechanic.
 
 | offset | Original | New value | Meaning                  |
 |--------|----------|-----------|--------------------------|
 | 92BB3  | E8       | 90        | Overwrites call with NOP |
-| 92BB4  | 2D       | 90        |                          | 
+| 92BB4  | 2D       | 90        |                          |
 | 92BB5  | 03       | 90        |                          |
 
-* Found in `ovr135_1B3`
+- Found in `ovr135_1B3`
 
 #### Neverending spells (untested!)
 
-* A function is called periodically to reduce the stability of spells. After the stability period is over, the spell gets deactivated.
-* This *shouldn't* make you unable to deactivate spells manually.
+- A function is called periodically to reduce the stability of spells. After the stability period is over, the spell gets deactivated.
+- This *shouldn't* make you unable to deactivate spells manually.
 
-* We can control this either by removing the stability decrease (`ovr135_180`)
- 
+- We can control this either by removing the stability decrease (`ovr135_180`)
+
 | offset | Original | New value | Meaning                               |
 |--------|----------|-----------|---------------------------------------|
 | 92B82  | 4A       | 90        | Removes the stability decrement.      |
 
-* or removing the call to the deactivation routine (`ovr135_165`).
+- or removing the call to the deactivation routine (`ovr135_165`).
 
 | offset | Original | New value | Meaning                               |
 |--------|----------|-----------|---------------------------------------|
@@ -207,20 +208,19 @@ These are provided with minimal testing
 | 92B66  | 98       | 90        |                                       |
 | 92B67  | FE       | 90        |                                       |
 
-
 ## TODOs
 
-* Check how easy it is to transfer the cheats from the Underworlds, and the UltimaHacks versions.
-* Test the hacks, at least a little.
-* Revise how UltimaHacks project adds functions and see if I can inject some functions for custom content.
-  * And also more space for cmb.dat
-  * Two cheats, one to move to other worlds, and another to move within the world, would be hyper cool. But maybe it'd be easier to edit the player and world data of saved games, then load them.
+- Check how easy it is to transfer the cheats from the Underworlds, and the UltimaHacks versions.
+- Test the hacks, at least a little.
+- Revise how UltimaHacks project adds functions and see if I can inject some functions for custom content.
+  - And also more space for cmb.dat
+  - Two cheats, one to move to other worlds, and another to move within the world, would be hyper cool. But maybe it'd be easier to edit the player and world data of saved games, then load them.
 
 ## Ideas
 
-* Adjust difficulty of skill checks
-* Adjust hunger gain/loss
- 
+- Adjust difficulty of skill checks
+- Adjust hunger gain/loss
+
 ## Workflow
 
 ### General
@@ -280,5 +280,5 @@ The result of this is just a set of offsets and bytes that you have to change.
 
 ## Thanks
 
-* To hankmorgan for his disassembly/reverse engineering project and the Godot engine projects
-* To all people involved in reverse engineering these games, starting with the file formats.
+- To hankmorgan for his disassembly/reverse engineering project and the Godot engine projects
+- To all people involved in reverse engineering these games, starting with the file formats.

@@ -1,0 +1,57 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+  }
+  
+  #root {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .options {
+    margin-bottom: 20px;
+  }
+  
+  #loading {
+    margin-bottom: 20px;
+  }
+  
+  #executable_hash {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  #hash_ok {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  input[type="checkbox"] {
+    margin-right: 10px;
+  }
+  
+  input[type="file"] {
+    margin-bottom: 20px;
+  }
+  
+  button {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #3e8e41;
+  }

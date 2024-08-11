@@ -7,8 +7,8 @@
         {
             "type": "msedge",
             "request": "launch",
-            "name": "Open main.html",
-            "file": "docs\\main.html",
+            "name": "Open index.html",
+            "file": "docs\\index.html",
             "preLaunchTask": "tsc: build - docs/tsconfig.json"
         }
     ]

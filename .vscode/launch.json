@@ -8,8 +8,8 @@
             "type": "msedge",
             "request": "launch",
             "name": "Open main.html",
-            "file": "webpatcher\\main.html",
-            "preLaunchTask": "tsc: build - webpatcher/tsconfig.json"
+            "file": "docs\\main.html",
+            "preLaunchTask": "tsc: build - docs/tsconfig.json"
         }
     ]
 }

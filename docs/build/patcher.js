@@ -51,6 +51,18 @@ function applyPatches() {
     for (var input of selectedInputs) {
         functionMaps[input.id](buffer);
     }
+    var b = new Blob([buffer], { type: "application/octet-stream" });
+    var u = URL.createObjectURL(b);
+    // Step 3: Create a Download Link
+    const a = document.createElement("a");
+    a.href = u;
+    a.download = "download";
+    // Step 4: Trigger the Download
+    document.body.appendChild(a);
+    a.click();
+    // Clean up by revoking the object URL
+    URL.revokeObjectURL(u);
+    document.body.removeChild(a);
 }
 function applySequentialLoreChecks() {
     if (buffer[0x28DA0] != 0x04) {

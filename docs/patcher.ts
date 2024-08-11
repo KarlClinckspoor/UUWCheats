@@ -52,6 +52,15 @@ function applyPatches() {
     for (var input of selectedInputs) {
         functionMaps[input.id](buffer);
     }
+    var b = new Blob([buffer], { type: "application/octet-stream" });
+    var u = URL.createObjectURL(b);
+    const a = document.createElement("a");
+    a.href = u;
+    a.download = "UW2P.exe";
+    document.body.appendChild(a);
+    a.click();
+    URL.revokeObjectURL(u);
+    document.body.removeChild(a);
 }
 
 function applySequentialLoreChecks() {

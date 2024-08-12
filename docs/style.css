@@ -50,8 +50,19 @@ body {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    align-self: center;
   }
   
   button:hover {
     background-color: #3e8e41;
+  }
+
+  #finalizing {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  #log {
+    margin-top: 10px;
+    overflow-y: scroll;
   }

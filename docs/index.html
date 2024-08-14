@@ -13,41 +13,44 @@
     <div id="root">
         <div id="loading">
             <input id="path_to_executable" type="file" onchange="loadExecutable()"> <br>
-            <p id="executable_hash">SHA256=</p> <p id="hash_ok"> </p>
+            <p id="executable_hash">SHA256=</p>
+            <p id="hash_ok"> </p>
         </div>
 
         <div id="patch_sequential_lore">
-            <h2>Allow sequential lore checks <span style="color: red">(mildly tested)</span> </h2> <br>
+            <h2><input type="checkbox" class="options" id="allow_sequential_lore_checks">Allow sequential lore checks
+                <span style="color: red">(mildly tested)</span> </h2>
             <p>
-                Allows sequential Lore checks on the same item. In vanilla, when an item is checked, a flag is set in
+                In vanilla, when an item is checked, a flag is set in
                 the item
                 information that prevents further checks. This flag is cleared when you increase your Lore skill, for
                 items in your
                 inventory. This patch ignores this flag.
             </p>
-            <input type="checkbox" class="options" id="allow_sequential_lore_checks"> <span>Apply</span>
         </div>
 
         <div id="patch_critical_skill_checks">
-            <h2>Every skill check is a critical success <span style="color: red">(untested!)</span></h2> <input
-                type="checkbox" id="critical_skill_checks">
-            <span>Apply</span>
+            <h2><input type="checkbox" id="critical_skill_checks">Every skill check is a critical success <span
+                    style="color: red">(untested!)</span></h2>
+            <p>
+                By controlling the flow in the function that tests your skills against random rolls, we can
+                control the flow and make it so every skill check results in a critical success (best
+                outcome).
+            </p>
         </div>
 
         <div id="patch_increase_carry_weight">
-            <h2>Increase inventory carry capacity on level up <span style="color: red">(untested!)</span></h2>
-            <input type="checkbox" class="options" id="increase_carry_weight">
-            <span>Apply</span> <br>
+            <h2><input type="checkbox" class="options" id="increase_carry_weight">Increase inventory carry capacity on
+                level up <span style="color: red">(untested!)</span></h2>
             <span> Multiplier, in decimal, base value is 13</span><input type="number" id="carry_weight_multiplier"
                 value="13"> <br>
             <span> Offset, in decimal, base value is 300</span><input type="number" id="carry_weight_offset"
                 value="300"> <br>
         </div>
         <div id="patch_increase_max_vitality_on_level_up">
-            <h2> Increase max vitality on level up <span style="color: red">(untested!)</span></h2>
+            <h2> <input type="checkbox" class="options" id="increase_max_vitality_on_level_up">Increase max vitality on
+                level up <span style="color: red">(untested!)</span></h2>
             <p> Formula is 30 + (str * level) / 5 </p>
-            <input type="checkbox" class="options" id="increase_max_vitality_on_level_up">
-            <span> Apply </span> <br>
             <span> Offset, in decimal, base value is 30</span>
             <input type="number" id="max_vitality_offset" value="30"> <br>
             <span> Divisor, base value is 5</span>
@@ -55,17 +58,16 @@
         </div>
 
         <div id="patch_increase_max_mana_on_level_up">
-            <h2> Increase max mana on level up <span style="color: red">(untested!)</span></h2>
+            <h2> <input type="checkbox" class="options" id="increase_max_mana_on_level_up">Increase max mana on level up
+                <span style="color: red">(untested!)</span></h2>
             <p> Formula is (Mana skill + 1) * Int / 8 </p>
-            <input type="checkbox" class="options" id="increase_max_mana_on_level_up">
-            <span>Apply</span> <br>
-            <span> Divisor, base value is 8, must be a multiple of 2, can be 0 </span> <input type="number" id="max_mana_divisor">
+            <span> Divisor, base value is 8, must be a multiple of 2, can be 0 </span> <input type="number"
+                id="max_mana_divisor" value="8">
         </div>
 
         <div id="patch_change_experience_required_for_level_ups">
-            <h2> Change experience required for level ups <span style="color: red">(untested!)</span></h2>
-            <input type="checkbox" class="options" id="change_experience_required_for_level_ups">
-            <span>Apply</span> <br>
+            <h2><input type="checkbox" class="options" id="change_experience_required_for_level_ups">Change experience
+                required for level ups <span style="color: red">(untested!)</span></h2>
             <span> Multiplier of the values below, base value is 500</span> <input type="text"
                 id="exp_required_level_up_multiplier" value="500" onchange="updateEXP()">
         </div>
@@ -178,68 +180,68 @@
             </tbody>
         </table>
         <div id="patch_number_of_skill_points_earned">
-            <h2> Increase number of skill points earned <span style="color:red">(untested!)</span></h2>
-            <input type="checkbox" class="options" id="increase_number_of_skill_points_earned"> <span> Apply </span> <br>
+            <h2><input type="checkbox" class="options" id="increase_number_of_skill_points_earned">Increase number of
+                skill points earned <span style="color:red">(untested!)</span></h2>
             <p> Every 150 exp points, you gain a skill point.</p>
             <span> New conversion ratio </span> <input type="text" id="exp_to_skill_ratio" value="150">
 
         </div>
 
         <div id="patch_exp_point_gain">
-            <h2> Increase experience point gain <span style="color:red">(untested!)</span></h2>
+            <h2> <input type="checkbox" class="options" id="increase_exp_point_gain">Increase experience point gain
+                <span style="color:red">(untested!)</span></h2>
             <p> This increases the amount of experience points you gain, in general. For some reason, the game
                 can divide your EXP by 2, and this removes this operation. </p>
-            <input type="checkbox" class="options" id="increase_exp_point_gain"> <span> Apply </span> <br>
         </div>
 
         <div id="patch_prevent_death">
-            <h2> Prevent death <span style="color:red">(untested!)</span></h2>
-            <input type="checkbox" class="options" id="prevent_death"> <span> Apply </span> <br>
-            <p> Prevents you from dying by removing the call to the function that handles death. As a side effect, you can
+            <h2> <input type="checkbox" class="options" id="prevent_death">Prevent death <span
+                    style="color:red">(untested!)</span></h2>
+            <p> Prevents you from dying by removing the call to the function that handles death. As a side effect, you
+                can
                 get stuck in places where a deathwarp would save you. In that case, you can run the original version and
                 die, then load back this version.</p>
 
         </div>
 
         <div id="patch_increase_health_regen">
-            <h2> Increase health regen <span style="color:red">(untested!)</span></h2>
-            <input type="checkbox" class="options" id="increase_health_regen"> <span> Apply </span> <br>
+            <h2><input type="checkbox" class="options" id="increase_health_regen">Increase health regen <span
+                    style="color:red">(untested!)</span></h2>
             <p> Every so often, the game regenerated your HP slowly, 1 point at a time. This can be increased</p>
             <input type="text" id="health_regen" value="1">
         </div>
 
         <div id="patch_increase_mana_regen">
-            <h2> Increase mana regen <span style="color:red">(untested!)</span></h2>
-            <input type="checkbox" class="options" id="increase_mana_regen"> <span> Apply </span> <br>
+            <h2> <input type="checkbox" class="options" id="increase_mana_regen">Increase mana regen <span
+                    style="color:red">(untested!)</span></h2>
             <p> Every so often, the game regenerated your MP slowly, 1 point at a time. This can be increased</p>
             <input type="text" id="mana_regen" value="1">
         </div>
 
         <div id="patch_longer_lasting_light_sources">
-            <h2> Longer lasting light sources <span style="color:red">(untested!)</span></h2>
-            <input type="checkbox" class="options" id="longer_lasting_light_sources"> <span> Apply </span> <br>
+            <h2> <input type="checkbox" class="options" id="longer_lasting_light_sources">Longer lasting light sources
+                <span style="color:red">(untested!)</span></h2>
             <p> You can either reduce the speed at which light sources get spent, or remove that mechanic entirely</p>
             <input type="radio" id="light_source_speed" name="light_source" checked value="speed"> <span> Reduce light
                 source speed </span>
-            <input type="radio" id="light_source_disable" name="light_source" value="disable"> <span> Disable light source
+            <input type="radio" id="light_source_disable" name="light_source" value="disable"> <span> Disable light
+                source
                 spending </span>
         </div>
 
         <div id="patch_neverending_spells">
-            <h2> Neverending spells <span style="color:red">(untested!)</span></h2>
-            <input type="checkbox" class="options" id="neverending_spells"> <span> Apply </span> <br>
+            <h2> <input type="checkbox" class="options" id="neverending_spells">Neverending spells <span
+                    style="color:red">(untested!)</span></h2>
             <p> You can either reduce the speed at which spells get used, or remove that mechanic entirely</p>
             <input type="radio" id="spell_speed" name="spell" checked value="speed"> <span> Reduce spell speed </span>
             <input type="radio" id="spell_disable" name="spell" value="disable"> <span> Disable spell usage </span>
         </div>
         <div id="finalizing">
-            <button id="apply_patches" onclick="applyPatches()">Apply Patches</button> <span id="patches_applied"></span> <br>
+            <button id="apply_patches" onclick="applyPatches()">Apply Patches</button> <span
+                id="patches_applied"></span> <br>
             <pre id="log"></pre>
         </div>
     </div>
-
-
-
     </div>
 </body>
 

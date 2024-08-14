@@ -45,8 +45,8 @@ function applyPatches() {
         "prevent_death": applyPreventDeath,
         "increase_health_regen": applyHPRegen,
         "increase_mana_regen": applyMPRegen,
-        "longer_lasting_light_source": applyLongerLastingLightSource,
-        "longer_lasting_spells": applyLongerLastingSpells,
+        "longer_lasting_light_sources": applyLongerLastingLightSource,
+        "neverending_spells": applyLongerLastingSpells,
         default: () => { throw new Error("Unknown patch. BUG! REPORT!"); }
     }
     for (var input of selectedInputs) {
@@ -280,7 +280,7 @@ function applyLongerLastingLightSource() {
 }
 
 function applyLongerLastingSpells() {
-    if (buffer[0x92B82] != 0x40 || buffer[0x92B65] != 0xE8 || buffer[0x92B66] != 0x98 || buffer[0x92B67] != 0xFE) {
+    if (buffer[0x92B82] != 0x4A || buffer[0x92B65] != 0xE8 || buffer[0x92B66] != 0x98 || buffer[0x92B67] != 0xFE) {
         throw new BufferMismatchError("Longer lasting spells: buffer mismatch");
     }
     var doSpeed = (<HTMLInputElement>document.getElementById("spell_speed")).checked;

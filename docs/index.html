@@ -40,7 +40,16 @@
 
         <div id="patch_increase_carry_weight">
             <h2><input type="checkbox" class="options" id="increase_carry_weight">Increase inventory carry capacity on
-                level up <span style="color: red">(untested!)</span></h2>
+                level up </h2>
+            <p>
+                Formula is (str * 13d) + 300d, in units of 0.1 stone. By altering the multiplier and base
+                values, we can increase this.
+            </p>
+            <p>
+                Note how the carry weight is fixed at the start of the playthrough, but it's updated when leveling up
+                because the same function is called in character generation and levelup... It sure would be cool to add
+                some stat gain per level, but that's very difficult to do without messing up the executable.
+            </p>
             <span> Multiplier, in decimal, base value is 13</span><input type="number" id="carry_weight_multiplier"
                 value="13"> <br>
             <span> Offset, in decimal, base value is 300</span><input type="number" id="carry_weight_offset"

@@ -44,10 +44,11 @@ but can be a bit underwhelming, as some checks don't rely solely on this dice ro
 
 - Found in `SkillCheck_seg038_342C_9`
 
-#### Increase inventory carry capacity on level up (untested!)
+#### Increase inventory carry capacity on level up
 
-- Formula is (str * 13d) + 300d, in units of 0.1 stone (check!). By altering the multiplier and base values, we can increase this.
+- Formula is (str * 13d) + 300d, in units of 0.1 stone. By altering the multiplier and base values, we can increase this.
 - Note how the carry weight is fixed at the start of the playthrough, but it's updated when leveling up because the same function is called in character generation and levelup... It sure would be cool to add some stat gain per level, but that's very difficult to do without messing up the executable.
+- Tested when creating a character, not when leveling up, so far.
 
 | offset | Original | New value                  | Meaning                                                         |
 | ------ | -------- | -------------------------- | --------------------------------------------------------------- |

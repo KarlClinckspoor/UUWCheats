@@ -26,21 +26,23 @@ These are provided with minimal testing
 
 - SHA-256 checksum: BF233ABBFEB5B664564B954FC70C615C4023AD2276DD3326FCD34700C10AFDB9
 
-#### Allow sequential Lore checks on the same item (mildly tested)
+#### Allow sequential Lore checks on the same item
 
 | offset | Original | New value | Meaning                                                                                                |
-|--------|----------|-----------|--------------------------------------------------------------------------------------------------------|
+| ------ | -------- | --------- | ------------------------------------------------------------------------------------------------------ |
 | 28DA0  | 04       | 00        | This value represents a test that is made. 0x04 means, originally, "this item was analyzed previously" |
 
-#### Every skill check is a critical success (untested!)
+#### Every skill check is a critical success
 
-| offset | Original | New value | Meaning                                                                                                         |
-|--------|----------|-----------|-----------------------------------------------------------------------------------------------------------------|
-| 35022  | 01       | 02        | This, and the following values, are just patches to control the flow of that function to always return success. |
-| 3502B  | 33       | 66        |                                                                                                                 |
-| 3502C  | C0       | 90        |                                                                                                                 |
-| 35030  | FF       | 02        |                                                                                                                 |
-| 35031  | FF       | 00        |                                                                                                                 |
+- Some actions roll a dice and can have four different results, critical failure, failure, success, critical success. This looks very good,
+but can be a bit underwhelming, as some checks don't rely solely on this dice roll.
+
+| offset | Original | New value | Meaning                                              |
+| ------ | -------- | --------- | ---------------------------------------------------- |
+| 35015  | 7E       | 90        | Ignores check and goes directly to critical success. |
+| 35016  | 05       | 90        |                                                      |
+
+- Found in `SkillCheck_seg038_342C_9`
 
 #### Increase inventory carry capacity on level up (untested!)
 
@@ -48,7 +50,7 @@ These are provided with minimal testing
 - Note how the carry weight is fixed at the start of the playthrough, but it's updated when leveling up because the same function is called in character generation and levelup... It sure would be cool to add some stat gain per level, but that's very difficult to do without messing up the executable.
 
 | offset | Original | New value                  | Meaning                                                         |
-|--------|----------|----------------------------|-----------------------------------------------------------------|
+| ------ | -------- | -------------------------- | --------------------------------------------------------------- |
 | 9AE3A  | 0D       | Anything greater than 0D   | Represents the multiplier, least significant byte. 000Dh = 13d. |
 | 9AE3B  | 00       | Anything greater than 0D   | Represents the multiplier, most significant byte.               |
 | 9AE3F  | 2C       | Anything greater than 012C | Represents the offset, least significant byte. 012Ch = 300d     |
@@ -61,7 +63,7 @@ These are provided with minimal testing
 - Formula is 30+(str * level)/5. By altering the base value or the divisor, we can increase this.
 
 | offset | Original | New value                          | Meaning                               |
-|--------|----------|------------------------------------|---------------------------------------|
+| ------ | -------- | ---------------------------------- | ------------------------------------- |
 | 9AE03  | 1E       | Anything greater than 1E           | Represents the base value. 1Eh = 30d. |
 | 9ADFD  | 05       | Anything lower than 05, but not 00 | Represents the divisor. 05h = 5d.     |
 
@@ -72,7 +74,7 @@ These are provided with minimal testing
 - Formula is (Mana skill + 1) * Int / 8. We could alter this by changing the base value or the divisor, but the base value would require adding bytes, so only the divisor is possible right now.
 
 | offset | Original | New value                       | Meaning                                                                          |
-|--------|----------|---------------------------------|----------------------------------------------------------------------------------|
+| ------ | -------- | ------------------------------- | -------------------------------------------------------------------------------- |
 | 9AE22  | 3        | Anything lower than 3 (0, 1, 2) | Represents the right bit shift. A shift of 3 is equivalent to dividing by 2^3=8. |
 
 - Found in function `CalculateHealthManaWeightValues_ovr154_93`
@@ -82,7 +84,7 @@ These are provided with minimal testing
 - There's a table that displays the experience required for leveling up. These values, multiplied by 500d, are the thresholds required. These are in units of 0.1 XP (meaning lvl2 requires 50 xp.)
 
 | offset | Original | New value | Meaning                                            |
-|--------|----------|-----------|----------------------------------------------------|
+| ------ | -------- | --------- | -------------------------------------------------- |
 | 69371  | 0        | 0         | lvl 1, Better not change this                      |
 | 69372  | 1        | 1         | lvl 2, 500d, better not change this                |
 | 69373  | 2        | 2         | lvl 3, 1000d, better not change this               |
@@ -105,7 +107,7 @@ These are provided with minimal testing
 - Alternatively, one can change the multiplier from 500d (01F4h) to something else. For example, if you want the multiplier to be 250d, convert this to hex (00FAh), then fill in the bytes as required.
 
 | offset | Original | New value | Meaning                                               |
-|--------|----------|-----------|-------------------------------------------------------|
+| ------ | -------- | --------- | ----------------------------------------------------- |
 | 35199  | F4       | FA        | Forms the lower byte. New value is equivalent to 250d |
 | 3519A  | 01       | 00        | Forms the upper byte                                  |
 
@@ -114,7 +116,7 @@ These are provided with minimal testing
 - Apparently every 1500d (05DCh) exp points you gain a skill point. By changing this value, you can earn skill points faster. For example, let's make this 1000d (3E8h).
 
   | offset | Original | New value | Meaning                                               |
-  |--------|----------|-----------|-------------------------------------------------------|
+  | ------ | -------- | --------- | ----------------------------------------------------- |
   | 350BB  | DC       | E8        | Forms the lower byte. New value is equivalent to 250d |
   | 350BC  | 05       | 03        | Forms the upper byte                                  |
 
@@ -125,7 +127,7 @@ These are provided with minimal testing
 - In the game, for whatever reason, there's a division of the acquired experience points by 2. This can be changed to 1.
 
   | offset | Original | New value | Meaning                 |
-  |--------|----------|-----------|-------------------------|
+  | ------ | -------- | --------- | ----------------------- |
   | 3504A  | 02       | 01        | Pretty self-explanatory |
 
 - As a side-effect, this will lower the variability in experience point acquisition.
@@ -137,7 +139,7 @@ These are provided with minimal testing
 - Note that if you get stuck somewhere and attempt to warp using death, if you have this, you'll be stuck (until you change the executable back).
 
 | offset | Original | New value | Meaning                          |
-|--------|----------|-----------|----------------------------------|
+| ------ | -------- | --------- | -------------------------------- |
 | 27F46  | 9A       | 90        | Changing the code from           |
 | 27F47  | 75       | 90        | calling another function         |
 | 27F48  | 00       | 90        | to NOP (no operation, opcode 90) |
@@ -152,7 +154,7 @@ These are provided with minimal testing
 - Funnily, the game uses a negative value to indicate the change should be fixed, not variable (i.e. with some RNG).
 
 | offset | Original | New value   | Meaning                                                                         |
-|--------|----------|-------------|---------------------------------------------------------------------------------|
+| ------ | -------- | ----------- | ------------------------------------------------------------------------------- |
 | 92C16  | FF       | FE, FD, ... | The two's complement value. FF is -1 (regens 1 HP), FE is -2 (regens 2 HP), etc |
 
 - Found in `HealthRegen_ovr135_215`.
@@ -163,7 +165,7 @@ These are provided with minimal testing
 - Funnily, the game uses a negative value to indicate the change should be fixed, not variable (i.e. with some RNG).
 
 | offset | Original | New value   | Meaning                                                                         |
-|--------|----------|-------------|---------------------------------------------------------------------------------|
+| ------ | -------- | ----------- | ------------------------------------------------------------------------------- |
 | 92C2F  | FF       | FE, FD, ... | The two's complement value. FF is -1 (regens 1 MP), FE is -2 (regens 2 MP), etc |
 
 - Found in `ManaRegen_ovr135_22E`.
@@ -174,7 +176,7 @@ These are provided with minimal testing
 - Found in `UpdateInventoryLightSources_ovr135_4E3`
 
 | offset | Original | New value | Meaning                            |
-|--------|----------|-----------|------------------------------------|
+| ------ | -------- | --------- | ---------------------------------- |
 | 92F74  | 8B       | B4        | Changes instruction to MOV         |
 | 92F75  | 46       | 01        | Decreases stability always by 1    |
 | 92F76  | 06       | 90        | NOP, to fill it the remaining byte |
@@ -182,7 +184,7 @@ These are provided with minimal testing
 - We can also remove the call to this entirely. This won't remove the call that happens when you sleep! Let's keep that interesting mechanic.
 
 | offset | Original | New value | Meaning                  |
-|--------|----------|-----------|--------------------------|
+| ------ | -------- | --------- | ------------------------ |
 | 92BB3  | E8       | 90        | Overwrites call with NOP |
 | 92BB4  | 2D       | 90        |                          |
 | 92BB5  | 03       | 90        |                          |
@@ -196,14 +198,14 @@ These are provided with minimal testing
 
 - We can control this either by removing the stability decrease (`ovr135_180`)
 
-| offset | Original | New value | Meaning                               |
-|--------|----------|-----------|---------------------------------------|
-| 92B82  | 4A       | 90        | Removes the stability decrement.      |
+| offset | Original | New value | Meaning                          |
+| ------ | -------- | --------- | -------------------------------- |
+| 92B82  | 4A       | 90        | Removes the stability decrement. |
 
 - or removing the call to the deactivation routine (`ovr135_165`).
 
 | offset | Original | New value | Meaning                               |
-|--------|----------|-----------|---------------------------------------|
+| ------ | -------- | --------- | ------------------------------------- |
 | 92B65  | E8       | 90        | Removes the call to cancel the spell. |
 | 92B66  | 98       | 90        |                                       |
 | 92B67  | FE       | 90        |                                       |

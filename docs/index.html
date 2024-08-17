@@ -19,7 +19,7 @@
 
         <div id="patch_sequential_lore">
             <h2><input type="checkbox" class="options" id="allow_sequential_lore_checks">Allow sequential lore checks
-                <span style="color: red">(mildly tested)</span> </h2>
+            </h2>
             <p>
                 In vanilla, when an item is checked, a flag is set in
                 the item
@@ -30,12 +30,11 @@
         </div>
 
         <div id="patch_critical_skill_checks">
-            <h2><input type="checkbox" id="critical_skill_checks">Every skill check is a critical success <span
-                    style="color: red">(untested!)</span></h2>
+            <h2><input type="checkbox" id="critical_skill_checks">Every skill check is a critical success </h2>
             <p>
-                By controlling the flow in the function that tests your skills against random rolls, we can
-                control the flow and make it so every skill check results in a critical success (best
-                outcome).
+                Some actions roll a dice and can have four different results, critical failure, failure, success,
+                critical success. This looks very good, but can be a bit underwhelming, as some checks don't rely solely
+                on this dice roll.
             </p>
         </div>
 
@@ -59,7 +58,8 @@
 
         <div id="patch_increase_max_mana_on_level_up">
             <h2> <input type="checkbox" class="options" id="increase_max_mana_on_level_up">Increase max mana on level up
-                <span style="color: red">(untested!)</span></h2>
+                <span style="color: red">(untested!)</span>
+            </h2>
             <p> Formula is (Mana skill + 1) * Int / 8 </p>
             <span> Divisor, base value is 8, must be a multiple of 2, can be 0 </span> <input type="number"
                 id="max_mana_divisor" value="8">
@@ -189,7 +189,8 @@
 
         <div id="patch_exp_point_gain">
             <h2> <input type="checkbox" class="options" id="increase_exp_point_gain">Increase experience point gain
-                <span style="color:red">(untested!)</span></h2>
+                <span style="color:red">(untested!)</span>
+            </h2>
             <p> This increases the amount of experience points you gain, in general. For some reason, the game
                 can divide your EXP by 2, and this removes this operation. </p>
         </div>
@@ -220,7 +221,8 @@
 
         <div id="patch_longer_lasting_light_sources">
             <h2> <input type="checkbox" class="options" id="longer_lasting_light_sources">Longer lasting light sources
-                <span style="color:red">(untested!)</span></h2>
+                <span style="color:red">(untested!)</span>
+            </h2>
             <p> You can either reduce the speed at which light sources get spent, or remove that mechanic entirely</p>
             <input type="radio" id="light_source_speed" name="light_source" checked value="speed"> <span> Reduce light
                 source speed </span>

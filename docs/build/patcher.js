@@ -84,15 +84,12 @@ function applySequentialLoreChecks() {
     buffer[0x28DA0] = 0x00;
 }
 function applyCriticalSkillChecks() {
-    if (buffer[0x35022] != 0x01 || buffer[0x3502B] != 0x33 || buffer[0x3502C] != 0xC0 || buffer[0x35030] != 0xFF || buffer[0x35031] != 0xFF) {
+    if (buffer[0x35015] != 0x7E || buffer[0x35016] != 0x05) {
         throw new BufferMismatchError("Critical skill checks: buffer error");
     }
     ;
-    buffer[0x35022] = 0x02;
-    buffer[0x3502B] = 0x66;
-    buffer[0x3502C] = 0x90;
-    buffer[0x35030] = 0x02;
-    buffer[0x35031] = 0x00;
+    buffer[0x35015] = 0x90;
+    buffer[0x35016] = 0x90;
 }
 function applyCarryWeightPatch() {
     if (buffer[0x9AE3A] != 0x0D || buffer[0x9AE3B] != 0x00 || buffer[0x9AE3F] != 0x2C || buffer[0x9AE40] != 0x01) {

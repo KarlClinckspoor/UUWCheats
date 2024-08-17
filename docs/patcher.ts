@@ -1,4 +1,5 @@
 var buffer: Uint8Array;
+var bufferOK = false;
 
 class BufferMismatchError extends Error {}
 class OptionsError extends Error {}
@@ -13,6 +14,9 @@ async function loadExecutable() {
             var hash = await getHash();
             document.getElementById("executable_hash").innerText = hash;
             document.getElementById("hash_ok").innerText = hash === uw2_gog_hash ? "Buffer matches hash, good to go" : "Wrong version - buffer mismatch";
+            if (hash === uw2_gog_hash) {
+                bufferOK = true;
+            }
         };
     }
 }
@@ -29,7 +33,14 @@ function separateShortIntoTwoBytes(int: number) {
 }
 
 function applyPatches() {
-    if (buffer === undefined) { throw new Error("buffer wasn't loaded!"); }
+    if (buffer === undefined) { 
+        log("Please load an executable first");
+        return;
+    }
+    if (!bufferOK) {
+        log("Wrong version - buffer mismatch");
+        return;
+    }
     var bufferCopy = new Uint8Array(buffer); // Copy in case we need to revert.
     var inputs = document.getElementsByClassName("options");
     var selectedInputs: Array<HTMLInputElement> = Array.prototype.filter.call(inputs, (input: Element) => (<HTMLInputElement>input).checked);

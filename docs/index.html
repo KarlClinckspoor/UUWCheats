@@ -11,6 +11,11 @@
 <body>
     <script src="build/patcher.js"></script>
     <div id="root">
+        <div id="intro">
+            <h1>UW2 GOG Cheats</h1>
+            <p> This page allows you to apply certain patches to the original game and make it easier, e.g. less EXP to level up, more health, etc. First, load the file and its SHA256 hash will be calculated. If it's the expected value, select the patches you want to apply, then click the Apply button at the bottom of this page. Place the modified executable in your folder and run the game.</p>
+            <p> To do this, you need to have extracted the game.gog file, which can be done with 7zip or many other tools. You'll need to configure dosbox to point to the directory you extracted the files to.</p>
+        </div>
         <div id="loading">
             <input id="path_to_executable" type="file" onchange="loadExecutable()"> <br>
             <p id="executable_hash">SHA256=</p>

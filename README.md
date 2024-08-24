@@ -151,7 +151,7 @@ but can be a bit underwhelming, as some checks don't rely solely on this dice ro
 
 - Found in `PlayerUpdateTick_seg026_2716_8`
 
-#### Increase natural health regen (untested!)
+#### Increase natural health regen
 
 - Every so often, the game regenerates your HP slowly by 1 unit at a time. We can increase this.
 - Funnily, the game uses a negative value to indicate the change should be fixed, not variable (i.e. with some RNG).

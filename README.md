@@ -70,7 +70,7 @@ but can be a bit underwhelming, as some checks don't rely solely on this dice ro
 
 - Found in function `CalculateHealthManaWeightValues_ovr154_93`
 
-#### Increase player max Mana value gain on level up (untested!)
+#### Increase player max Mana value gain on level up
 
 - Formula is (Mana skill + 1) * Int / 8. We could alter this by changing the base value or the divisor, but the base value would require adding bytes, so only the divisor is possible right now.
 
@@ -112,9 +112,9 @@ but can be a bit underwhelming, as some checks don't rely solely on this dice ro
 | 35199  | F4       | FA        | Forms the lower byte. New value is equivalent to 250d |
 | 3519A  | 01       | 00        | Forms the upper byte                                  |
 
-#### Increase number of skill points earned (untested!)
+#### Increase number of skill points earned
 
-- Apparently every 1500d (05DCh) exp points you gain a skill point. By changing this value, you can earn skill points faster. For example, let's make this 1000d (3E8h).
+- Apparently every 1500d (05DCh) (in units of 0.1) exp points you gain a skill point. By changing this value, you can earn skill points faster. For example, let's make this 1000d (3E8h).
 
   | offset | Original | New value | Meaning                                               |
   | ------ | -------- | --------- | ----------------------------------------------------- |
@@ -123,7 +123,7 @@ but can be a bit underwhelming, as some checks don't rely solely on this dice ro
 
 - Found in `seg038_342C_CA`, `Experience_seg038_342C_45`
 
-#### Increase number of experience points (untested!)
+#### Increase number of experience points
 
 - In the game, for whatever reason, there's a division of the acquired experience points by 2. This can be changed to 1.
 
@@ -139,13 +139,15 @@ but can be a bit underwhelming, as some checks don't rely solely on this dice ro
 - In the game, every *tick*, the game checks for a lot of stuff. One of those is if your health is below 0, and then calls a function that handles death and resurrection. If we remove the call to that, we can circumvent death. In UW2, this also means fights in the pits, guards in the castle and dreaming in dream world.
 - Note that if you get stuck somewhere and attempt to warp using death, if you have this, you'll be stuck (until you change the executable back).
 
-| offset | Original | New value | Meaning                          |
-| ------ | -------- | --------- | -------------------------------- |
-| 27F46  | 9A       | 90        | Changing the code from           |
-| 27F47  | 75       | 90        | calling another function         |
-| 27F48  | 00       | 90        | to NOP (no operation, opcode 90) |
-| 27F49  | 99       | 90        |                                  |
-| 27F4A  | 65       | 90        |                                  |
+| offset | Original | New value | Meaning          |
+| ------ | -------- | --------- | ---------------- |
+| 27F46  | 9A       | EB        | Jumping over all |
+| 27F47  | 75       | 03        |                  |
+| 27F48  | 00       | 90        |                  |
+| 27F49  | 99       | 90        |                  |
+| 27F4A  | 65       | 90        |                  |
+
+- Since this is calling an overlaid function, I think the address of the latter offsets was being changed during runtime, no substituting everything for NOP wasn't working. I used an unconditional jump a few bytes down to jump over, then filled in with NOPs.
 
 - Found in `PlayerUpdateTick_seg026_2716_8`
 

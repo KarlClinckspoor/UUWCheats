@@ -9,14 +9,26 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 
 <body>
-    <script src="build/patcher.js"></script>
     <div id="root">
         <div id="intro">
             <h1>UW2 GOG Cheats</h1>
-            <p> This page allows you to apply certain patches to the original game and make it easier, e.g. less EXP to level up, more health, etc. First, load the file and its SHA256 hash will be calculated. If it's the expected value, select the patches you want to apply, then click the Apply button at the bottom of this page. Place the modified executable in your folder and run the game.</p>
-            <p> To do this, you need to have extracted the game.gog file, which can be done with 7zip or many other tools. You'll need to configure dosbox to point to the directory you extracted the files to.</p>
+            <p> This page allows you to apply certain patches to the original game and make it easier, e.g. less EXP to
+                level up, more health, etc. First, load the file and its SHA256 hash will be calculated. If it's the
+                expected value, select the patches you want to apply, then click the Apply button at the bottom of this
+                page. Place the modified executable in your folder and run the game.</p>
+            <p> To do this, you need to have extracted the game.gog file, which can be done with 7zip or many other
+                tools. You'll need to configure dosbox to point to the directory you extracted the files to.</p>
+            <p> <span style="color: red;">WARNING: These patches were, up to this moment, not tested very extensively.
+                    They <i>shouldn't</i> affect your game too much, but use them at your own risk.</span></p>
+            <p> If you don't trust this website (even though the it's all client-side and the source code is both simple
+                and relatively small), you can always go to the <a
+                    href="https://github.com/KarlClinckspoor/UUWCheats">original write-up</a> for more instructions on
+                how to apply these patches manually.</p>
+            <p> If you want to suggest new patches, report bugs or feature requests, please <a
+                    href="https://github.com/KarlClinckspoor/UUWCheats/issues/new">open an issue</a>.</p>
         </div>
         <div id="loading">
+            <label for="path_to_executable">Load executable: </label>
             <input id="path_to_executable" type="file" onchange="loadExecutable()"> <br>
             <p id="executable_hash">SHA256=</p>
             <p id="hash_ok"> </p>
@@ -72,7 +84,6 @@
 
         <div id="patch_increase_max_mana_on_level_up">
             <h2> <input type="checkbox" class="options" id="increase_max_mana_on_level_up">Increase max mana on level up
-                <span style="color: red">(untested!)</span>
             </h2>
             <p> Formula is (Mana skill + 1) * Int / 8 </p>
             <span> Divisor, base value is 8, must be a multiple of 2, can be 0 </span> <input type="number"
@@ -195,27 +206,25 @@
         </table>
         <div id="patch_number_of_skill_points_earned">
             <h2><input type="checkbox" class="options" id="increase_number_of_skill_points_earned">Increase number of
-                skill points earned <span style="color:red">(untested!)</span></h2>
-            <p> Every 150 exp points, you gain a skill point.</p>
+                skill points earned </h2>
+            <p> Originally, every 150 exp points, you gain a skill point. You can set this to another value.</p>
             <span> New conversion ratio </span> <input type="text" id="exp_to_skill_ratio" value="150">
 
         </div>
 
         <div id="patch_exp_point_gain">
             <h2> <input type="checkbox" class="options" id="increase_exp_point_gain">Increase experience point gain
-                <span style="color:red">(untested!)</span>
             </h2>
-            <p> This increases the amount of experience points you gain, in general. For some reason, the game
-                can divide your EXP by 2, and this removes this operation. </p>
+            <p> This increases the amount of experience points you gain, in general.</p>
         </div>
 
         <div id="patch_prevent_death">
-            <h2> <input type="checkbox" class="options" id="prevent_death">Prevent death <span
-                    style="color:red">(untested!)</span></h2>
+            <h2> <input type="checkbox" class="options" id="prevent_death">Prevent death</h2>
             <p> Prevents you from dying by removing the call to the function that handles death. As a side effect, you
                 can
                 get stuck in places where a deathwarp would save you. In that case, you can run the original version and
-                die, then load back this version.</p>
+                die, then load back this version. This patch is still a bit iffy, will need more testing to be 100% sure
+                it's working without side effects.</p>
 
         </div>
 
@@ -259,6 +268,7 @@
         </div>
     </div>
     </div>
+    <script src="build/patcher.js"></script>
 </body>
 
 </html>

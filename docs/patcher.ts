@@ -1,8 +1,8 @@
 var buffer: Uint8Array;
 var bufferOK = false;
 
-class BufferMismatchError extends Error {}
-class OptionsError extends Error {}
+class BufferMismatchError extends Error { }
+class OptionsError extends Error { }
 
 async function loadExecutable() {
     var uw2_gog_hash = "BF233ABBFEB5B664564B954FC70C615C4023AD2276DD3326FCD34700C10AFDB9";
@@ -33,7 +33,7 @@ function separateShortIntoTwoBytes(int: number) {
 }
 
 function applyPatches() {
-    if (buffer === undefined) { 
+    if (buffer === undefined) {
         log("Please load an executable first");
         return;
     }
@@ -237,8 +237,8 @@ function applyPreventDeath() {
     if (buffer[0x27F46] != 0x9A || buffer[0x27F47] != 0x75 || buffer[0x27F48] != 0x00 || buffer[0x27F49] != 0x99 || buffer[0x27F4A] != 0x65) {
         throw new BufferMismatchError("Prevent death: buffer mismatch");
     }
-    buffer[0x27F46] = 0x90;
-    buffer[0x27F47] = 0x90;
+    buffer[0x27F46] = 0xEB;
+    buffer[0x27F47] = 0x03;
     buffer[0x27F48] = 0x90;
     buffer[0x27F49] = 0x90;
     buffer[0x27F4A] = 0x90;

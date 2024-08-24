@@ -134,7 +134,7 @@ but can be a bit underwhelming, as some checks don't rely solely on this dice ro
 - As a side-effect, this will lower the variability in experience point acquisition.
 - Found in `Experience_seg038_342C_45`.
 
-#### Prevent death (untested!)
+#### Prevent death
 
 - In the game, every *tick*, the game checks for a lot of stuff. One of those is if your health is below 0, and then calls a function that handles death and resurrection. If we remove the call to that, we can circumvent death. In UW2, this also means fights in the pits, guards in the castle and dreaming in dream world.
 - Note that if you get stuck somewhere and attempt to warp using death, if you have this, you'll be stuck (until you change the executable back).
@@ -162,7 +162,7 @@ but can be a bit underwhelming, as some checks don't rely solely on this dice ro
 
 - Found in `HealthRegen_ovr135_215`.
 
-#### Increase natural mana regen (untested!)
+#### Increase natural mana regen
 
 - Every so often, the game regenerates your mana slowly by 1 unit at a time. We can increase this.
 - Funnily, the game uses a negative value to indicate the change should be fixed, not variable (i.e. with some RNG).

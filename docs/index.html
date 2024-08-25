@@ -15,15 +15,20 @@
             <p> This page allows you to apply certain patches to the original game and make it easier, e.g. less EXP to
                 level up, more health, etc. First, load the file and its SHA256 hash will be calculated. If it's the
                 expected value, select the patches you want to apply, then click the Apply button at the bottom of this
-                page. Place the modified executable in your folder and run the game.</p>
-            <p> To do this, you need to have extracted the game.gog file, which can be done with 7zip or many other
-                tools. You'll need to configure dosbox to point to the directory you extracted the files to.</p>
-            <p> <span style="color: red;">WARNING: These patches were, up to this moment, not tested very extensively.
-                    They <i>shouldn't</i> affect your game too much, but use them at your own risk.</span></p>
+                page. Place the modified executable in your folder and run the game. Your browser might complain that
+                the
+                file isn't trusted, but you'll need to allow it. Use a tool like ImHex or HxD to compare the original and the
+                patched file and you'll see only a few select bytes have been changed, verifying the program is safe to use.</p>
             <p> If you don't trust this website (even though the it's all client-side and the source code is both simple
                 and relatively small), you can always go to the <a
                     href="https://github.com/KarlClinckspoor/UUWCheats">original write-up</a> for more instructions on
-                how to apply these patches manually.</p>
+                how to apply these patches manually. </p>
+            <p> The executable (uw2.exe) is in the game.gog file in the GOG installation directory. This .gog file is
+                just a disk image, which can be extracted with 7zip or many other tools. After you apply the patch, 
+                you can either point dosbox to this directory or re-make the image with your favorite tool and replace 
+                game.gog with it.</p>
+            <p> <span style="color: red;">WARNING: These patches were, up to this moment, not tested very extensively.
+                    They <i>shouldn't</i> affect your game too much, but use them at your own risk.</span></p>
             <p> If you want to suggest new patches, report bugs or feature requests, please <a
                     href="https://github.com/KarlClinckspoor/UUWCheats/issues/new">open an issue</a>.</p>
         </div>
@@ -241,16 +246,16 @@
         </div>
 
         <div id="patch_infinite_light_sources">
-            <h2> <input type="checkbox" class="options" id="infinite_light_sources">Infinite duration light sources </h2>
+            <h2> <input type="checkbox" class="options" id="infinite_light_sources">Infinite duration light sources
+            </h2>
             <p>Note: Doesn't disable light source spending when sleeping</p>
         </div>
 
         <div id="patch_neverending_spells">
-            <h2> <input type="checkbox" class="options" id="neverending_spells">Neverending spells <span
-                    style="color:red">(untested!)</span></h2>
-            <p> You can either reduce the speed at which spells get used, or remove that mechanic entirely</p>
-            <input type="radio" id="spell_speed" name="spell" checked value="speed"> <span> Reduce spell speed </span>
-            <input type="radio" id="spell_disable" name="spell" value="disable"> <span> Disable spell usage </span>
+            <h2> <input type="checkbox" class="options" id="neverending_spells">Neverending spells </h2>
+            <p>
+                Makes spells never expire.
+            </p>
         </div>
         <div id="finalizing">
             <button id="apply_patches" onclick="applyPatches()">Apply Patches</button> <span

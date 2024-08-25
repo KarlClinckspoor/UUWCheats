@@ -57,7 +57,7 @@ function applyPatches() {
         "increase_health_regen": applyHPRegen,
         "increase_mana_regen": applyMPRegen,
         "infinite_light_sources": applyInfiniteLightSource,
-        "neverending_spells": applyLongerLastingSpells,
+        "neverending_spells": applyNeverendingSpells,
         default: () => { throw new Error("Unknown patch. BUG! REPORT!"); }
     }
     for (var input of selectedInputs) {
@@ -87,6 +87,8 @@ function applyPatches() {
     a.click();
     URL.revokeObjectURL(u);
     document.body.removeChild(a);
+    // Revert back to original
+    buffer = bufferCopy;
 }
 
 function applySequentialLoreChecks() {
@@ -267,33 +269,51 @@ function applyMPRegen() {
 }
 
 function applyInfiniteLightSource() {
-    if (buffer[0x92BB2] != 0x0E || buffer[0x92BB3] != 0xE8 || buffer[0x92BB4] != 0x2D || buffer[0x92BB5] != 0x03 || buffer[0x92BB8] != 0x04) {
-        throw new BufferMismatchError("Infinite light");
+    if (
+        buffer[0x92BAE] != 0x50 ||
+        buffer[0x92BAF] != 0x6A ||
+        buffer[0x92BB0] != 0x01 ||
+        buffer[0x92BB2] != 0x0E ||
+        buffer[0x92BB3] != 0xE8 ||
+        buffer[0x92BB4] != 0x2D ||
+        buffer[0x92BB5] != 0x03 ||
+        buffer[0x92BB6] != 0x83 ||
+        buffer[0x92BB7] != 0xC4 ||
+        buffer[0x92BB8] != 0x04
+    ) {
+        throw new BufferMismatchError("Infinite light: buffer mismatch");
     }
+    buffer[0x92BAE] = 0x90;
+    buffer[0x92BAF] = 0x90;
+    buffer[0x92BB0] = 0x90;
     buffer[0x92BB2] = 0x90;
     buffer[0x92BB3] = 0x90;
     buffer[0x92BB4] = 0x90;
     buffer[0x92BB5] = 0x90;
-    buffer[0x92BB8] = 0x02;
+    buffer[0x92BB6] = 0x90;
+    buffer[0x92BB7] = 0x90;
+    buffer[0x92BB8] = 0x90;
 }
 
-function applyLongerLastingSpells() {
-    if (buffer[0x92B82] != 0x4A || buffer[0x92B65] != 0xE8 || buffer[0x92B66] != 0x98 || buffer[0x92B67] != 0xFE) {
-        throw new BufferMismatchError("Longer lasting spells: buffer mismatch");
+function applyNeverendingSpells() {
+    if (
+        buffer[0x92B63] != 0x50 ||
+        buffer[0x92B64] != 0x0E ||
+        buffer[0x92B65] != 0xE8 ||
+        buffer[0x92B66] != 0x98 ||
+        buffer[0x92B67] != 0xFE ||
+        buffer[0x92B68] != 0x44 ||
+        buffer[0x92B69] != 0x44
+    ) {
+        throw new BufferMismatchError("Neverending spells: buffer mismatch");
     }
-    var doSpeed = (<HTMLInputElement>document.getElementById("spell_speed")).checked;
-    var doDisable = (<HTMLInputElement>document.getElementById("spell_disable")).checked;
-    if (doSpeed && doDisable) {
-        throw new OptionsError("Spell speed and disable cannot both be enabled!");
-    }
-    if (doSpeed) {
-        buffer[0x92B82] = 0x90;
-    }
-    if (doDisable) {
-        buffer[0x92B65] = 0x90;
-        buffer[0x92B66] = 0x90;
-        buffer[0x92B67] = 0x90;
-    }
+    buffer[0x92B63] = 0x90;
+    buffer[0x92B64] = 0x90;
+    buffer[0x92B65] = 0x90;
+    buffer[0x92B66] = 0x90;
+    buffer[0x92B67] = 0x90;
+    buffer[0x92B68] = 0x90;
+    buffer[0x92B69] = 0x90;
 }
 
 function log(message: string) {

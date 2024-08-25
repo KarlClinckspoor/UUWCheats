@@ -116,10 +116,10 @@ but can be a bit underwhelming, as some checks don't rely solely on this dice ro
 
 - Apparently every 1500d (05DCh) (in units of 0.1) exp points you gain a skill point. By changing this value, you can earn skill points faster. For example, let's make this 1000d (3E8h).
 
-  | offset | Original | New value | Meaning                                               |
-  | ------ | -------- | --------- | ----------------------------------------------------- |
-  | 350BB  | DC       | E8        | Forms the lower byte. New value is equivalent to 250d |
-  | 350BC  | 05       | 03        | Forms the upper byte                                  |
+  | offset | Original | New value | Meaning               |
+  | ------ | -------- | --------- | --------------------- |
+  | 350BB  | DC       | E8        | Forms the lower byte. |
+  | 350BC  | 05       | 03        | Forms the upper byte  |
 
 - Found in `seg038_342C_CA`, `Experience_seg038_342C_45`
 
@@ -179,32 +179,32 @@ but can be a bit underwhelming, as some checks don't rely solely on this dice ro
 
 | offset | Original | New value | Meaning                  |
 | ------ | -------- | --------- | ------------------------ |
-| 92BB2  | 0E       | 90        | Overwrites call with NOP |
+| 92BAE  | 50       | 90        | Overwrites call with NOP |
+| 92BAF  | 6A       | 90        |                          |
+| 92BB0  | 01       | 90        |                          |
+| 92BB2  | 0E       | 90        |                          |
 | 92BB3  | E8       | 90        |                          |
 | 92BB4  | 2D       | 90        |                          |
 | 92BB5  | 03       | 90        |                          |
-| 92BB8  | 04       | 02        | And fixes stack          |
+| 92BB6  | 83       | 90        |                          |
+| 92BB7  | C4       | 90        |                          |
+| 92BB8  | 04       | 90        |                          |
 
 - Found in `ovr135_1B3`
 
-#### Neverending spells (untested!)
+#### Neverending spells
 
-- A function is called periodically to reduce the stability of spells. After the stability period is over, the spell gets deactivated.
-- This *shouldn't* make you unable to deactivate spells manually.
-
-- We can control this either by removing the stability decrease (`ovr135_180`)
+- A function is called periodically to reduce the stability of spells. After the stability period is over, the spell gets deactivated. We can remove this by jumping over the the deactivation routine (`ovr135_165`).
 
 | offset | Original | New value | Meaning                          |
 | ------ | -------- | --------- | -------------------------------- |
-| 92B82  | 4A       | 90        | Removes the stability decrement. |
-
-- or removing the call to the deactivation routine (`ovr135_165`).
-
-| offset | Original | New value | Meaning                               |
-| ------ | -------- | --------- | ------------------------------------- |
-| 92B65  | E8       | 90        | Removes the call to cancel the spell. |
-| 92B66  | 98       | 90        |                                       |
-| 92B67  | FE       | 90        |                                       |
+| 92B63  | 50       | 90        | Removes the call to the function |
+| 92B64  | 0E       | 90        |                                  |
+| 92B65  | E8       | 90        |                                  |
+| 92B66  | 98       | 90        |                                  |
+| 92B67  | FE       | 90        |                                  |
+| 92B68  | 44       | 90        |                                  |
+| 92B69  | 44       | 90        |                                  |
 
 ## TODOs
 

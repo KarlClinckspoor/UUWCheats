@@ -56,7 +56,7 @@ function applyPatches() {
         "prevent_death": applyPreventDeath,
         "increase_health_regen": applyHPRegen,
         "increase_mana_regen": applyMPRegen,
-        "longer_lasting_light_sources": applyLongerLastingLightSource,
+        "infinite_light_sources": applyInfiniteLightSource,
         "neverending_spells": applyLongerLastingSpells,
         default: () => { throw new Error("Unknown patch. BUG! REPORT!"); }
     }
@@ -266,25 +266,15 @@ function applyMPRegen() {
     buffer[0x92C2F] = (newRegen * -1) & 0xFF;
 }
 
-function applyLongerLastingLightSource() {
-    if (buffer[0x92F74] != 0x8B || buffer[0x92F75] != 0x46 || buffer[0x92F76] != 0x06 || buffer[0x92BB3] != 0xE8 || buffer[0x92BB4] != 0x2D || buffer[0x92BB5] != 0x03) {
-        throw new BufferMismatchError("Longer lasting light: buffer mismatch");
+function applyInfiniteLightSource() {
+    if (buffer[0x92BB2] != 0x0E || buffer[0x92BB3] != 0xE8 || buffer[0x92BB4] != 0x2D || buffer[0x92BB5] != 0x03 || buffer[0x92BB8] != 0x04) {
+        throw new BufferMismatchError("Infinite light");
     }
-    var doSpeed = (<HTMLInputElement>document.getElementById("light_source_speed")).checked;
-    var doDisable = (<HTMLInputElement>document.getElementById("light_source_disable")).checked;
-    if (doSpeed && doDisable) {
-        throw new OptionsError("Light source speed and disable cannot both be enabled!");
-    }
-    if (doSpeed) {
-        buffer[0x92F74] = 0xB4;
-        buffer[0x92F75] = 0x01;
-        buffer[0x92F76] = 0x90;
-    }
-    if (doDisable) {
-        buffer[0x92BB3] = 0x90;
-        buffer[0x92BB4] = 0x90;
-        buffer[0x92BB5] = 0x90;
-    }
+    buffer[0x92BB2] = 0x90;
+    buffer[0x92BB3] = 0x90;
+    buffer[0x92BB4] = 0x90;
+    buffer[0x92BB5] = 0x90;
+    buffer[0x92BB8] = 0x02;
 }
 
 function applyLongerLastingSpells() {

@@ -173,24 +173,17 @@ but can be a bit underwhelming, as some checks don't rely solely on this dice ro
 
 - Found in `ManaRegen_ovr135_22E`.
 
-#### Longer lasting light sources (untested!)
+#### Infinite light sources
 
-- Instead of providing the duration requested by the function, we can substitute that for 1 always, decreasing the quality penalty less rapidly. This will also affect light decrease when sleeping!
-- Found in `UpdateInventoryLightSources_ovr135_4E3`
-
-| offset | Original | New value | Meaning                            |
-| ------ | -------- | --------- | ---------------------------------- |
-| 92F74  | 8B       | B4        | Changes instruction to MOV         |
-| 92F75  | 46       | 01        | Decreases stability always by 1    |
-| 92F76  | 06       | 90        | NOP, to fill it the remaining byte |
-
-- We can also remove the call to this entirely. This won't remove the call that happens when you sleep! Let's keep that interesting mechanic.
+- Initially I had a patch to slow down the consumption of fuel, but I didn't understand the assembly too well and it was difficult to test, so I'm only keeping the infinite light source patch.
 
 | offset | Original | New value | Meaning                  |
 | ------ | -------- | --------- | ------------------------ |
-| 92BB3  | E8       | 90        | Overwrites call with NOP |
+| 92BB2  | 0E       | 90        | Overwrites call with NOP |
+| 92BB3  | E8       | 90        |                          |
 | 92BB4  | 2D       | 90        |                          |
 | 92BB5  | 03       | 90        |                          |
+| 92BB8  | 04       | 02        | And fixes stack          |
 
 - Found in `ovr135_1B3`
 
